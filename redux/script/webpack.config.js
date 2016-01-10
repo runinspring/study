@@ -3,14 +3,14 @@ var fs = require('fs');
 var path = require('path');
 var urlProject = fs.realpathSync('./');
 var node_modules = path.resolve(urlProject, 'node_modules');
-//console.log(111,__dirname);
-//console.log(222,urlProject);
-//path.resolve(urlProject, 'src/Main')
-//path.resolve(urlProject, 'src/Index')
+
+//var lessonPath = 'src/lesson1/Index';
+var lessonPath = 'src/lesson2/Index';
+//var lessonPath = 'src/combineReducers/App';
 config = {
     entry: [
         'webpack/hot/dev-server',
-        path.resolve(urlProject, 'src/lesson1/Index')
+        path.resolve(urlProject, lessonPath)
     ],
     resolve: {
         extensions: ['', '.js', '.ts', '.tsx']

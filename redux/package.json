@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "egret-launcher",
   "devDependencies": {
+    "isomorphic-fetch": "^2.2.0",
     "object-assign": "^4.0.1",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
@@ -18,11 +19,14 @@
     "react-router": "^1.0.3",
     "redux": "3.0.4",
     "redux-devtools": "^3.0.1",
+    "redux-logger": "^2.3.1",
+    "redux-thunk": "^1.0.3",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.7.2",
     "typescript": "^1.8.0-dev.20151129",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",
-    "webpack-typescript": "^0.5.6"
+    "webpack-typescript": "^0.5.6",
+    "whatwg-fetch": "^0.10.1"
   }
 }
