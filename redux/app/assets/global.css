@@ -1,0 +1,6 @@
+#left { position: absolute; left: 0; top: 0; width: 100px; }
+#right { position: absolute; left:100px; right: 0; top: 0; }
+.project { position: absolute; left: 20px; top: 0;}
+.project .header { margin:10px 0px 0px 0px;}
+.project .body { margin:20px 0px 0px 0px;}
+.project .body .part { margin:10px 0px 0px 0px;}
