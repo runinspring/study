@@ -2,7 +2,19 @@ import * as React from 'react';
 import {Component, PropTypes} from 'react';
 import {findDOMNode} from  'react-dom';
 
-export default class AddTodo extends React.Component<any,any>{
+
+interface AddTodoProps {
+
+    onAddClick:Function;
+
+
+}
+
+
+
+
+
+export default class AddTodo extends React.Component<AddTodoProps,any>{
     private handleClick(e){
         var node = findDOMNode(this.refs['input']);
         var text = node['value'].trim();//trim去除两侧空格

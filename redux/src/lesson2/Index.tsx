@@ -1,22 +1,21 @@
-import * as React from 'react';
-import {Component, PropTypes} from 'react';
-import * as ReactDOM from 'react-dom';
-import reducer from './reducers/Reducers';
-import thunkMiddleware from 'redux-thunk'
+//import thunkMiddleware from 'redux-thunk'
+//import createLogger from 'redux-logger'
+
+var thunkMiddleware = require("redux-thunk");
+var createLogger = require("redux-logger");
+
 import { createStore, applyMiddleware } from 'redux'
-import { selectReddit, fetchPosts } from './Actions'
-export default class Index extends Component <any,any>{
-    constructor(){
-        super();
-        let store = createStore(reducer);
-        console.log(store.getState())
-    }
-    render(){
-        //console.log(Actions.SELECT_REDDIT)
-        return(
-            <div>1212</div>
-        )
-    }
-}
-var dom = ReactDOM;
-dom.render(<Index/>, document.getElementById('app'));
+import { selectReddit, fetchPosts } from './actions'
+import rootReducer from './reducers/Reducers'
+let loggerMiddleware = createLogger()
+let createStoreWithMiddleware = applyMiddleware(
+//    thunkMiddleware, // 允许我们 dispatch() 函数
+    loggerMiddleware
+)(createStore)
+
+let store = createStoreWithMiddleware(rootReducer);
+
+store.dispatch(selectReddit('reactjs'))
+store.dispatch(fetchPosts('reactjs')).then(() =>
+    console.log(store.getState())
+)
