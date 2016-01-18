@@ -37,6 +37,14 @@ export function receivePosts(reddit,json){
 // 虽然内部操作不同，你可以像其它 action creator 一样使用它：
 // store.dispatch(fetchPosts('reactjs'))
 export function fetchPosts(reddit){
+
+    return{
+        type:RECEIVE_POSTS,
+        reddit,
+        posts:{},
+        receivedAt:Date.now()
+    }
+
     return function (dispatch){
         dispatch(requestPosts(reddit));
         return fetch(`http://www.reddit.com/r/${reddit}.json`)

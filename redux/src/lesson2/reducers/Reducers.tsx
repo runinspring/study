@@ -4,8 +4,11 @@ import {
     SELECT_REDDIT,INVALIDATE_REDDIT,
     REQUEST_POSTS,RECEIVE_POSTS
 } from '../Actions'
-
-function selectedReddit(state='reactjs',action){
+function selectedReddit(state,action){
+    if(state === undefined){
+        state = 'reactjs';
+    }
+//function selectedReddit(state='reactjs',action){
     switch (action.type){
         case SELECT_REDDIT:
             return action.reddit;
@@ -13,11 +16,21 @@ function selectedReddit(state='reactjs',action){
             return state;
     }
 }
-function posts(state={
-    ifFecthing:false,
-    didInvalidate:false,
-    items:[]
-},action){
+
+
+function posts(state,action){
+    if(state === undefined){
+        state = {
+            ifFecthing:false,
+            didInvalidate:false,
+            items:[]
+        }
+    }
+//function posts(state={
+//    ifFecthing:false,
+//    didInvalidate:false,
+//    items:[]
+//},action){
     switch (action.type){
         case INVALIDATE_REDDIT:
             return assign({},state,{
@@ -39,7 +52,10 @@ function posts(state={
             return state;
     }
 }
-function postsByReddit(state={},action){
+function postsByReddit(state,action){
+    if(state === undefined){
+        state={}
+    }
     switch (action.type){
         case INVALIDATE_REDDIT:
         case RECEIVE_POSTS:
