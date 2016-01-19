@@ -12,6 +12,7 @@ export default class UrlPanel extends React.Component<any,any> {
 
     render() {
         var self =this;
+        var top = {margin:'4px'};
         return (<div className="urlPanel">
             <div className="area">
                 <div>
@@ -22,8 +23,11 @@ export default class UrlPanel extends React.Component<any,any> {
                         <i className="fa fa-cancle"></i>
                     </button>
                 </div>
-                <div id="urlInputArea"className="input" contentEditable={true}>
+                <div id="urlInputArea"className="input" contentEditable={true}/>
+                <div style={top}>
+                    <a>请输入链接文字:</a>
                 </div>
+                <div id="urlInputArea"className="input" contentEditable={true}/>
                 <div>
                     <button className="subButton" onClick={()=>{
                     var link = document.getElementById('urlInputArea').innerHTML;

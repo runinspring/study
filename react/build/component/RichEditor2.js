@@ -47,16 +47,14 @@ var RichEditor = (function (_super) {
         };
     }
     RichEditor.prototype.emitChange = function () {
+        console.log('emitChange');
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         this.props.onChange({ target: { value: newHtml } });
     };
     RichEditor.prototype.execCommand = function (command, arg) {
+        console.log('execCommand', command, false, arg, document);
         document.execCommand(command, false, arg);
-    };
-    RichEditor.prototype.setLink = function (value) {
-        console.log(value);
-        this.execCommand('CreateLink', value);
     };
     RichEditor.prototype.render = function () {
         var _this = this;
@@ -71,22 +69,16 @@ var RichEditor = (function (_super) {
             return React.createElement("li", {"key": 'justify' + idx}, React.createElement("a", {"href": "javascript:;", "onClick": _this.execCommand.bind(_this, item.parm)}, item.value));
         });
         var getButtons = this.arrButtons.map(function (item, idx) {
-            return React.createElement("button", {"className": "button", "key": 'button' + idx, "onClick": _this.execCommand.bind(_this, item.parm)}, React.createElement("i", {"className": item.className}));
+            return React.createElement("button", {"key": 'button' + idx, "onClick": _this.execCommand.bind(_this, item.parm)}, React.createElement("i", {"className": item.className}));
         });
-        return (React.createElement("div", {"className": "body"}, React.createElement("div", {"className": "edit-bar"}, React.createElement("div", {"className": "btn-group"}, getButtons, React.createElement("button", {"className": "button", "onClick": function () {
-            document.execCommand('CreateLink', true, 'true');
-        }}, React.createElement("i", {"className": "fa fa-url"}))), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", {"className": "button"}, React.createElement("i", {"className": "fa fa-text-height"}), React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", {"className": "button"}, React.createElement("i", {"className": "fa fa-align-left"}), React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, getJustifyList)), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", {"className": "button"}, React.createElement("i", {"className": "fa fa-paragraph"}), React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, " ", getBlockList, " ")), React.createElement("button", {"className": "button", "onClick": function () {
-            self.execCommand('removeFormat', "");
-            self.execCommand('Unlink', "");
-        }}, React.createElement("i", {"className": "fa fa-eraser"}))), React.createElement("div", {"className": "edit-area", "ref": "editor", "contentEditable": true, "dangerouslySetInnerHTML": { __html: this.state.html }, "onInput": this.emitChange.bind(this)})));
+        return (React.createElement("div", {"className": "edit"}, React.createElement("div", {"className": "edit-bar"}, React.createElement("div", {"className": "btn-group"}, getButtons), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", null, React.createElement("i", {"className": "fa fa-text-height"}), " ", React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", null, React.createElement("i", {"className": "fa fa-align-left"}), " ", React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, getJustifyList)), React.createElement("div", {"className": "btn-group drop-down"}, React.createElement("button", null, React.createElement("i", {"className": "fa fa-paragraph"}), " ", React.createElement("i", {"className": "fa fa-caret-down"})), React.createElement("ul", null, " ", getBlockList, " ")), React.createElement("button", {"onClick": this.execCommand.bind(this, 'removeFormat')}, React.createElement("i", {"className": "fa fa-eraser"}))), React.createElement("div", {"className": "edit-area", "ref": "editor", "contentEditable": true, "dangerouslySetInnerHTML": { __html: this.state.html }, "onInput": this.emitChange.bind(this)})));
     };
     RichEditor.propTypes = {
         content: react_1.PropTypes.string.isRequired,
-        onChange: react_1.PropTypes.func.isRequired,
-        onChangeUrlPanel: react_1.PropTypes.func.isRequired
+        onChange: react_1.PropTypes.func.isRequired
     };
     return RichEditor;
 })(React.Component);
 exports.__esModule = true;
 exports["default"] = RichEditor;
-//# sourceMappingURL=RichEditor.js.map
+//# sourceMappingURL=RichEditor2.js.map

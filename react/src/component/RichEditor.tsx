@@ -65,27 +65,27 @@ export default class RichEditor extends React.Component<any,any> {
     ];
 
     /**设置链接 range是最开始的选择范围*/
-    private setLink(value, range):void {
-        console.log(value, range);
+    private setLink(value):void {
+        console.log(value);
         this.execCommand('CreateLink', value);
     }
 
     /**获取选择范围*/
-    private getSelection():number[] {
-        var selectedText;
-        if (window.getSelection) {
-            selectedText = window.getSelection();
-        } else if (document['selection']) {
-            selectedText = document['selection'].createRange().text;
-        }
-        console.log(selectedText,selectedText['focusOffset'], selectedText['anchorOffset'])
-        return [selectedText['focusOffset'], selectedText['anchorOffset']]
-        //console.log('selectedText:',selectedText,selectedText['focusOffset'],selectedText['anchorOffset'])
-    }
+    //private getSelection():number[] {
+    //    var selectedText;
+    //    if (window.getSelection) {
+    //        selectedText = window.getSelection();
+    //    } else if (document['selection']) {
+    //        selectedText = document['selection'].createRange().text;
+    //    }
+    //    console.log(selectedText,selectedText['focusOffset'], selectedText['anchorOffset'])
+    //    return [selectedText['focusOffset'], selectedText['anchorOffset']]
+    //    //console.log('selectedText:',selectedText,selectedText['focusOffset'],selectedText['anchorOffset'])
+    //}
     /**离开文本区域，判断是否有选择的文字*/
-    private mouseOut():void{
-        console.log('mouseOut',this.getSelection())
-    }
+    //private mouseOut():void{
+    //    console.log('mouseOut',this.getSelection())
+    //}
 
     render() {
         //console.log('render',this.state);
@@ -110,6 +110,7 @@ export default class RichEditor extends React.Component<any,any> {
                 <i className={item.className}></i>
             </button>
         })
+        //
         return (
             <div className="body">
                 <div className="edit-bar">
@@ -117,8 +118,9 @@ export default class RichEditor extends React.Component<any,any> {
                         {getButtons}
                         <button className="button"
                                 onClick={()=>{
-                                var range = self.getSelection();
-                                this.props.onChangeUrlPanel((e)=>{self.setLink(e,range)})
+                                document.execCommand('CreateLink', true, 'true');
+                                //document.execCommand('InsertInputText',true,"a212a");
+                                //this.props.onChangeUrlPanel((e)=>{self.setLink(e)})
                                 }}>
                             <i className="fa fa-url"></i>
                         </button>
@@ -156,7 +158,7 @@ export default class RichEditor extends React.Component<any,any> {
                 </div>
 
                 <div className="edit-area"
-                     onBlur={this.mouseOut.bind(this)}
+
                      ref="editor"
                      contentEditable={true}
                      dangerouslySetInnerHTML={{__html: this.state.html}}
@@ -165,6 +167,8 @@ export default class RichEditor extends React.Component<any,any> {
         )
     }
 }
+//焦点离开
+//onBlur={this.mouseOut.bind(this)}
 //<button className="button"
 //        onClick={()=>{
 //                                this.props.onChangeUrlPanel((e)=>{self.setLink(e)})

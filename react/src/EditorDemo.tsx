@@ -29,6 +29,7 @@ export default class EditorDemo extends React.Component<any,any> {
         var self = this;
         var getUrlPanel = function(){
             if(self.state.urlPanel){
+                console.log(2312);
                 return <UrlPanel onClosePanel={self.closeUrlPanel.bind(self)}/>
             }else{
                 return <div/>

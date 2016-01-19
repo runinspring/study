@@ -7,7 +7,7 @@
 }
 .edit{
     position:relative;
-    min-width: 330px;
+    min-width: 400px;
 }
 .edit .body{
     position:relative;
@@ -28,31 +28,35 @@
 .edit .body .edit-bar{
     border-bottom: solid 1px #dddddd;
     background-color: #f2f2f2;
+    height: 20px;
 }
 .edit .body .edit-bar .btn-group{
     float: left;
 }
 .edit .body .edit-bar .button{
-    outline: none;
-    height: 18px;
-    line-height: 18px;
     border:none;
+    outline: none;
+    height: 22px;
+    line-height: 22px;
+    background-color: #f2f2f2;
     display: inline-flex;
-    width: 32px;
-}
-.edit .body .edit-bar .button i{
-    width: 100%;
-    text-align: center;
-    height: 18px;
-    line-height: 18px;
+    width: 34px;
 }
 .edit .body .edit-bar .button:hover{
     background-color: #FFFFFF;
     border:1px solid #0099cc;
-    height: 19px;
+
 }
+.edit .body .edit-bar .button i{
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    line-height: 100%;
+}
+
 .edit .body .edit-area{
     outline:none;
+    margin: 4px 2px 2px 2px;
     height: 150px;
     word-break:break-all;
     overflow:auto;
@@ -78,7 +82,7 @@
 .edit .urlPanel{
     position: absolute ;
     width: 200px;
-    height: 73px;
+    height: 118px;
     float: inherit;
     top:22px;
     left: 180px;
@@ -92,12 +96,15 @@
     margin: 6px 6px 6px 6px;
 }
 .edit .urlPanel .input{
+    overflow-x: hidden;
+    width: 100%;
     font-size: 12px;
     box-shadow: inset 2px 2px #ffffff;
     border:1px solid #dddddd;
     height: 20px;
     line-height: 20px;
     margin: 4px 0 0 0;
+    white-space:nowrap;
 }
 .edit .urlPanel .area .cancleButton{
     float: right;
