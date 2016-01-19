@@ -1,0 +1,78 @@
+<apps>
+	<app>
+		<id>EgretWing</id>
+		<name>Egret Wing</name>
+		<type>air</type>
+		<description>Egret Wing 2.0 is an IDE for Egret projects. It supports visually creating, editing and managing the GUI in your projects. It also supports TypeScript coding and debugging.</description>
+	</app>
+	<app>
+		<id>DragonBonesPro</id>
+		<name>DragonBones</name>
+		<type>air</type>
+		<description>DragonBones is an opensource skeleton animation solution for mobile game development.</description>
+	</app>
+	<app>
+		<id>EgretFeather</id>
+		<name>Egret Feather</name>
+		<type>air</type>
+		<description>Egret Feather is a partical _1800, which supports to create kaleidescope effects with different parameter combinations. </description>
+	</app>
+	<app>
+		<id>ResDepot</id>
+		<name>Res Depot</name>
+		<type>air</type>
+		<description>Res Depot is a visual resource management tool for Egret game, which supports to manage a huge amounts of resources including game content and configuration files with easy and efficiency.</description>
+	</app>	
+	<app>
+		<id>TextureMerger</id>
+		<name>Texture Merger</name>
+		<type>air</type>
+		<description>Texture Merger is a texture packaging tool which can merge scattered texture picture to a new big one to improve the game performance.</description>
+	</app>
+	<app>
+		<id>EgretConversion</id>
+		<name>Egret Conversion</name>
+		<type>air</type>
+		<description>Egret Conversion is an useful tool which can easily and efficiently convert Flash to Egret HTML5 project.</description>
+	</app>
+	<app>
+		<id>EgretInspector</id>
+		<name>Egret Inspector</name>
+		<type>other</type>
+		<description>Egret Inspector a plug-in for Chrome developer, which can help visually debug the Egret project. </description>
+		<version></version>
+		<devversion></devversion>
+		<folder>EgretInspector/</folder>
+		<filename>EgretInspector-v$version$.crx</filename>
+	</app>
+	<app>
+		<id>EgretVS</id>
+		<name>Egret VS</name>
+		<type>other</type>
+		<description>EgretVS is a plug-in for Visual Studio, which can improve the user experience of Egret Engine in VS. </description>
+		<version></version>
+		<devversion></devversion>
+		<folder>EgretVS/</folder>
+		<filename>EgretVS-v$version$.vsix</filename>
+	</app>
+	<app>
+		<id>EgretAndroidSupport</id>
+		<name>Egret Android Support</name>
+		<type>other</type>
+		<description>Egret Android Support is a tool that converts the game developed by Egret engine to  Andriod APP. </description>
+		<version></version>
+		<devversion></devversion>
+		<folder>android-support/</folder>
+		<filename>egret-android-support-$version$.zip</filename>
+	</app>
+	<app>
+		<id>EgretIOSSupport</id>
+		<name>Egret IOS Support</name>
+		<type>other</type>
+		<description>Egret IOS Support is a tool that converts the game develped by Egret engine to ios APP. </description>
+		<version></version>
+		<devversion></devversion>
+		<folder>ios-support/</folder>
+		<filename>egret-ios-support-$version$.zip</filename>
+	</app>
+</apps>

@@ -9,7 +9,7 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     private emitChange() {
-        //console.log(this)
+        console.log('emitChange')
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         //console.log(newHtml)
@@ -17,15 +17,14 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     private execCommand(command, arg):void {
-        //console.log('execCommand', command, false, arg)
+        console.log('execCommand',command,false, arg,document)
         document.execCommand(command, false, arg);
     }
 
     /**使用该类的时候必须要写入的方法,可以通过 this.props 调用*/
     public static propTypes = {
         content: PropTypes.string.isRequired,
-        onChange: PropTypes.func.isRequired,
-        onChangeUrlPanel: PropTypes.func.isRequired
+        onChange: PropTypes.func.isRequired
     }
 
     private arrBlock = [
@@ -63,32 +62,8 @@ export default class RichEditor extends React.Component<any,any> {
         {parm: 'insertOrderedList', className: 'fa fa-list-ol'},
         {parm: 'insertUnorderedList', className: 'fa fa-list-ul'}
     ];
-
-    /**设置链接 range是最开始的选择范围*/
-    private setLink(value, range):void {
-        console.log(value, range);
-        this.execCommand('CreateLink', value);
-    }
-
-    /**获取选择范围*/
-    private getSelection():number[] {
-        var selectedText;
-        if (window.getSelection) {
-            selectedText = window.getSelection();
-        } else if (document['selection']) {
-            selectedText = document['selection'].createRange().text;
-        }
-        console.log(selectedText,selectedText['focusOffset'], selectedText['anchorOffset'])
-        return [selectedText['focusOffset'], selectedText['anchorOffset']]
-        //console.log('selectedText:',selectedText,selectedText['focusOffset'],selectedText['anchorOffset'])
-    }
-    /**离开文本区域，判断是否有选择的文字*/
-    private mouseOut():void{
-        console.log('mouseOut',this.getSelection())
-    }
-
+//
     render() {
-        //console.log('render',this.state);
         var self = this;
         var getFontSizeList = this.arrFontSize.map((item, idx)=> {
             return <li key={"fontsize"+idx}>
@@ -105,67 +80,55 @@ export default class RichEditor extends React.Component<any,any> {
                 <a href="javascript:;" onClick={this.execCommand.bind(this,item.parm)}>{item.value}</a>
             </li>
         })
-        var getButtons = this.arrButtons.map((item, idx)=> {
-            return  <button className="button" key={'button'+idx} onClick={this.execCommand.bind(this, item.parm)}>
+        var getButtons = this.arrButtons.map((item, idx)=>{
+            return  <button  key={'button'+idx} onClick={this.execCommand.bind(this, item.parm)}>
                 <i className={item.className}></i>
             </button>
         })
+        //var getButtons = this.arrButtons.map((item, idx)=>{
+        //    return  <div className="button" key={'button'+idx} onClick={this.execCommand.bind(this, item.parm)}>
+        //        <i className={item.className}></i>
+        //    </div>
+        //})
+
         return (
-            <div className="body">
+            <div className="edit">
                 <div className="edit-bar">
                     <div className="btn-group">
                         {getButtons}
-                        <button className="button"
-                                onClick={()=>{
-                                var range = self.getSelection();
-                                this.props.onChangeUrlPanel((e)=>{self.setLink(e,range)})
-                                }}>
-                            <i className="fa fa-url"></i>
-                        </button>
                     </div>
                     <div className="btn-group drop-down">
-                        <button className="button">
-                            <i className="fa fa-text-height"></i>
-                            <i className="fa fa-caret-down"></i>
+                        <button>
+                            <i className="fa fa-text-height"></i> <i className="fa fa-caret-down"></i>
                         </button>
                         <ul> {getFontSizeList} </ul>
                     </div>
                     <div className="btn-group drop-down">
-                        <button className="button">
-                            <i className="fa fa-align-left"></i>
-                            <i className="fa fa-caret-down"></i>
+                        <button>
+                            <i className="fa fa-align-left"></i> <i className="fa fa-caret-down"></i>
                         </button>
                         <ul>
                             {getJustifyList}
                         </ul>
                     </div>
                     <div className="btn-group drop-down">
-                        <button className="button">
-                            <i className="fa fa-paragraph"></i>
-                            <i className="fa fa-caret-down"></i>
+                        <button>
+                            <i className="fa fa-paragraph"></i> <i className="fa fa-caret-down"></i>
                         </button>
                         <ul> {getBlockList} </ul>
                     </div>
-                    <button className="button"
-                            onClick={()=>{
-                            self.execCommand('removeFormat',"");
-                            self.execCommand('Unlink',"");
-                            }}>
+
+                    <button
+                        onClick={this.execCommand.bind(this, 'removeFormat')}>
                         <i className="fa fa-eraser"></i>
                     </button>
                 </div>
-
                 <div className="edit-area"
-                     onBlur={this.mouseOut.bind(this)}
-                     ref="editor"
-                     contentEditable={true}
-                     dangerouslySetInnerHTML={{__html: this.state.html}}
-                     onInput={this.emitChange.bind(this)}/>
+                    ref="editor"
+                    contentEditable={true}
+                    dangerouslySetInnerHTML={{__html: this.state.html}}
+                    onInput={this.emitChange.bind(this)}/>
             </div>
         )
     }
 }
-//<button className="button"
-//        onClick={()=>{
-//                                this.props.onChangeUrlPanel((e)=>{self.setLink(e)})
-//                                }}>

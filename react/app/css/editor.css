@@ -1,0 +1,164 @@
+@font-face {
+    font-family:'FontAwesome';
+    src:url('./fontawesome-webfont.ttf') format('truetype');
+    url('./FontAwesome.otf');
+    font-weight:normal;
+    font-style:normal
+}
+.edit{
+    position:relative;
+    min-width: 330px;
+}
+.edit .body{
+    position:relative;
+    min-width: 330px;
+    border:1px solid #999999;
+}
+.edit .unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
+.edit .body .edit-bar{
+    border-bottom: solid 1px #dddddd;
+    background-color: #f2f2f2;
+}
+.edit .body .edit-bar .btn-group{
+    float: left;
+}
+.edit .body .edit-bar .button{
+    outline: none;
+    height: 18px;
+    line-height: 18px;
+    border:none;
+    display: inline-flex;
+    width: 32px;
+}
+.edit .body .edit-bar .button i{
+    width: 100%;
+    text-align: center;
+    height: 18px;
+    line-height: 18px;
+}
+.edit .body .edit-bar .button:hover{
+    background-color: #FFFFFF;
+    border:1px solid #0099cc;
+    height: 19px;
+}
+.edit .body .edit-area{
+    outline:none;
+    height: 150px;
+    word-break:break-all;
+    overflow:auto;
+}
+
+.edit .body .edit-bar .drop-down ul{
+    background-color: #ffffff;
+    border:1px solid #dddddd;
+    margin:0 0 14px 0px ;position: absolute;visibility: hidden;list-style:none;padding:0px;}
+.edit .body .edit-bar .drop-down:hover ul{
+    visibility: visible;
+}
+.edit .body .edit-bar .drop-down li{
+    border-bottom: solid 1px #e5edf2;
+}
+/**下拉菜单取消下划线和颜色*/
+.edit .body .edit-bar .drop-down ul a{
+    margin: 2px 2px 2px 2px;
+    text-decoration:none;
+    color: #000000;
+}
+/**输入 url 链接的面板*/
+.edit .urlPanel{
+    position: absolute ;
+    width: 200px;
+    height: 73px;
+    float: inherit;
+    top:22px;
+    left: 180px;
+    background: #FFFFFF;
+    border:1px solid #dddddd;
+    box-shadow:2px 2px 2px 0 #dddddd;
+    font-size: 12px;
+    color: #444444;
+}
+.edit .urlPanel .area{
+    margin: 6px 6px 6px 6px;
+}
+.edit .urlPanel .input{
+    font-size: 12px;
+    box-shadow: inset 2px 2px #ffffff;
+    border:1px solid #dddddd;
+    height: 20px;
+    line-height: 20px;
+    margin: 4px 0 0 0;
+}
+.edit .urlPanel .area .cancleButton{
+    float: right;
+    margin-top: -5px;
+}
+.edit .urlPanel .area .subButton{
+    margin-top: 5px;
+    outline: none;
+    border:none;
+    border:1px solid #235994;
+    color: #FFFFFF;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2d7bcb), color-stop(0.5, #296dbd), to(#255dad));
+}
+.edit .urlPanel .area .subButton:active{
+    background: #235994;
+}
+.edit .fa {
+    display:inline-block;
+    font-family:FontAwesome;
+    font-style:normal;
+    font-weight:normal;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
+}
+.edit .fa-paragraph:before {
+    content:"\f1dd"
+}
+.edit .fa-caret-down:before {
+    content:"\f0d7"
+}
+.edit .fa-bold:before {
+    content:"\f032"
+}
+.edit .fa-italic:before {
+    content:"\f033"
+}
+.edit .fa-underline:before {
+    content:"\f0cd"
+}
+.edit .fa-strikethrough:before {
+    content:"\f0cc"
+}
+.edit .fa-text-height:before {
+    content:"\f034"
+}
+.edit .fa-list-ul:before {
+    content:"\f0ca"
+}
+.edit .fa-list-ol:before {
+    content:"\f0cb"
+}
+.edit .fa-align-left:before {
+    content:"\f036"
+}
+.edit .fa-eraser:before {
+    content:"\f12d"
+}
+.edit .fa-url:before {
+    content:"\f0c1"
+}
+.edit .fa-cancle:before {
+    content:"\f00d"
+}

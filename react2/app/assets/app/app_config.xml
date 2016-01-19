@@ -1,0 +1,84 @@
+<apps>
+	<app>
+		<id>EgretWing</id>
+		<name>Egret Wing</name>
+		<type>air</type>
+		<description>Egret Wing 2.0 一款针对Egret项目的IDE。支持可视化创建、编辑和管理项目GUI，以及TS代码编写和断点调试。</description>
+	</app>
+	<app>
+		<id>DragonBonesPro</id>
+		<name>DragonBones</name>
+		<type>air</type>
+		<description>DragonBones是一款开源免费的移动游戏骨骼动画解决方案。</description>
+	</app>
+	<app>
+		<id>EgretFeather</id>
+		<name>Egret Feather</name>
+		<type>air</type>
+		<description>Egret Feather是一款粒子编辑器，各个参数的组合塑造千变万化的效果，为游戏添姿添彩。</description>
+	</app>
+	<app>
+		<id>ResDepot</id>
+		<name>Res Depot</name>
+		<type>air</type>
+		<description>Res Depot是Egret游戏的可视化资源管理工具，能够轻松高效地管理海量游戏素材和配置文件资源。</description>
+	</app>	
+	<app>
+		<id>TextureMerger</id>
+		<name>Texture Merger</name>
+		<type>air</type>
+		<description>Texture Merger是一款纹理集打包工具，能批量将零散碎图合并为大图纹理集，提升游戏性能。</description>
+	</app>
+	<app>
+		<id>Lakeshore</id>
+		<name>Lakeshore</name>
+		<type>air</type>
+		<description>Lakeshore是一款免费无需编程的游戏创作工具，通过Lakeshore可以轻松实现自己的游戏创作梦想。</description>
+	</app>
+	<app>
+		<id>EgretConversion</id>
+		<name>Egret Conversion</name>
+		<type>air</type>
+		<description>Egret Conversion是一款项目转换工具，能够快速的将Flash项目转换成Egret HTML5项目。</description>
+	</app>
+	<app>
+		<id>EgretInspector</id>
+		<name>Egret Inspector</name>
+		<type>other</type>
+		<description>Egret Inspector 是一款Chrome开发者工具插件，能够帮助开发者可视化的调试Egret项目。</description>
+		<version></version>
+		<devversion></devversion>
+		<folder>EgretInspector/</folder>
+		<filename>EgretInspector-v$version$.crx</filename>
+	</app>
+	<app>
+		<id>EgretVS</id>
+		<name>Egret VS</name>
+		<type>other</type>
+		<description>EgretVS是一款Visual Studio插件，致力于提高Egret引擎在Visual Studio中的使用体验。</description>
+		<version></version>
+		<devversion></devversion>
+		<folder>EgretVS/</folder>
+		<filename>EgretVS-v$version$.vsix</filename>
+	</app>
+	<app>
+		<id>EgretAndroidSupport</id>
+		<name>Egret Android Support</name>
+		<type>other</type>
+		<description>Egret Android Support是将基于Egret引擎开发的游戏转换为Android APP的工具。</description>
+		<version></version>
+		<devversion></devversion>
+		<folder>android-support/</folder>
+		<filename>egret-android-support-$version$.zip</filename>
+	</app>
+	<app>
+		<id>EgretIOSSupport</id>
+		<name>Egret IOS Support</name>
+		<type>other</type>
+		<description>Egret IOS Support是将基于Egret引擎开发的游戏转换为iOS APP的工具。</description>
+		<version></version>
+		<devversion></devversion>
+		<folder>ios-support/</folder>
+		<filename>egret-ios-support-$version$.zip</filename>
+	</app>
+</apps>

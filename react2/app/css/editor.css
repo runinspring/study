@@ -1,0 +1,81 @@
+@font-face {
+    font-family:'FontAwesome';
+    src:url('./fontawesome-webfont.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal
+}
+.edit{
+    border:1px solid #999999;
+}
+.edit .edit-bar{
+    border-bottom: solid 1px #dddddd;
+    background-color: #f2f2f2;
+}
+.edit .edit-bar .btn-group{
+    float: left;
+}
+.edit .edit-area{
+    outline:none;
+    height: 150px;
+    overflow:auto;
+}
+
+.edit .edit-bar .drop-down ul{
+    background-color: #ffffff;
+    border:1px solid #dddddd;
+    margin:0 0 14px 0px ;position: absolute;visibility: hidden;list-style:none;padding:0px;}
+.edit .edit-bar .drop-down:hover ul{
+    visibility: visible;
+}
+.edit .edit-bar .drop-down li{
+    border-bottom: solid 1px #e5edf2;
+}
+/**下拉菜单取消下划线和颜色*/
+.edit .edit-bar .drop-down ul a{
+    margin: 2px 2px 2px 2px;
+    text-decoration:none;
+    color: #000000;
+}
+
+.fa {
+    display:inline-block;
+    font-family:FontAwesome;
+    font-style:normal;
+    font-weight:normal;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
+}
+.fa-paragraph:before {
+    content:"\f1dd"
+}
+.fa-caret-down:before {
+    content:"\f0d7"
+}
+.fa-bold:before {
+    content:"\f032"
+}
+.fa-italic:before {
+    content:"\f033"
+}
+.fa-underline:before {
+    content:"\f0cd"
+}
+.fa-strikethrough:before {
+    content:"\f0cc"
+}
+.fa-text-height:before {
+    content:"\f034"
+}
+.fa-list-ul:before {
+    content:"\f0ca"
+}
+.fa-list-ol:before {
+    content:"\f0cb"
+}
+.fa-align-left:before {
+    content:"\f036"
+}
+.fa-eraser:before {
+    content:"\f12d"
+}
