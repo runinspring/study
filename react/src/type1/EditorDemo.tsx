@@ -6,31 +6,29 @@ export default class EditorDemo extends React.Component<any,any> {
         super(props);
         this.state = {
             urlPanel:false,
+            urlPanelCallBack:Function,
             content:'测试文字'
         }
     }
-    /**用户输入url的回调方法*/
-    private callBackUrl:Function;
     /**点击链接按钮，切换url输入面板的状态*/
     private changeUrlPanel(callBack):void{
-        this.callBackUrl = callBack;
-        this.setState({urlPanel:!this.state.urlPanel});
+        this.setState({urlPanel:!this.state.urlPanel,urlPanelCallBack:callBack});
     }
     /**url 面板上的关闭按钮*/
-    private closeUrlPanel(value:string):void{
+    private closeUrlPanel():void{
         this.setState({urlPanel:false});
 
-        if(value){
-            console.log('closeUrlPanel:',value)
-            this.callBackUrl(value);
-        }
+        //if(value){
+        //    console.log('closeUrlPanel:',value)
+        //    //this.callBackUrl(value);
+        //}
     }
     render(){
         var self = this;
         var getUrlPanel = function(){
             if(self.state.urlPanel){
-                console.log(2312);
-                return <UrlPanel onClosePanel={self.closeUrlPanel.bind(self)}/>
+                //console.log(2312);
+                return <UrlPanel onClosePanel={self.closeUrlPanel.bind(self)} onSubmit={self.state.urlPanelCallBack}/>
             }else{
                 return <div/>
             }

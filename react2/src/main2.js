@@ -5,7 +5,7 @@
 //var ReactDOM = require('react-dom');
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import Rerte from './components/index'
 //import Router from './core/Router';
 class Main2 extends React.Component {
 	constructor(){
@@ -14,7 +14,8 @@ class Main2 extends React.Component {
 	render(){
 		return (
 				<div>
-					2222
+					22223
+					<Rerte></Rerte>
 				</div>
 		);
 	}

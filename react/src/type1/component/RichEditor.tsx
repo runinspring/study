@@ -1,22 +1,30 @@
 import * as React from 'react';
 import {PropTypes} from 'react';
+import UrlPanel from './UrlPanel';
 export default class RichEditor extends React.Component<any,any> {
     constructor(props) {
         super(props);
         this.state = {
             html: this.props.content
         }
+        this.target = this;
     }
 
+    private target:any;
     private emitChange() {
         //console.log(this)
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
+        //this.content = newHtml;
         //console.log(newHtml)
         this.props.onChange({target: {value: newHtml}})
     }
 
     private execCommand(command, arg):void {
+        /**当前的对象，如果不是，不改变*/
+        //var select = document.getElementById('textbox');
+        //console.log(select,this)
+        //console.log(window.getSelection())
         //console.log('execCommand', command, false, arg)
         document.execCommand(command, false, arg);
     }
@@ -54,6 +62,14 @@ export default class RichEditor extends React.Component<any,any> {
         {parm: 'justifyCenter', value: 'Align Center'},
         {parm: 'justifyFull', value: 'Align Justify'},
     ];
+    private arrColors = [
+        {value: '#000000'},
+        {value: '#ff0000'},
+        {value: '#ff00ff'},
+        {value: '#ffff00'},
+        {value: '#0000ff'},
+        {value: '#ffffff'}
+    ]
     /**单一的按钮列表*/
     private arrButtons = [
         {parm: 'bold', className: 'fa fa-bold'},
@@ -63,29 +79,13 @@ export default class RichEditor extends React.Component<any,any> {
         {parm: 'insertOrderedList', className: 'fa fa-list-ol'},
         {parm: 'insertUnorderedList', className: 'fa fa-list-ul'}
     ];
-
+    private endPos:number;
+    private edit:any;
     /**设置链接 range是最开始的选择范围*/
-    private setLink(value):void {
-        console.log(value);
-        this.execCommand('CreateLink', value);
+    private setLink(data):void {
+        console.log('setLint:',data);
+        this.execCommand('CreateLink', data);
     }
-
-    /**获取选择范围*/
-    //private getSelection():number[] {
-    //    var selectedText;
-    //    if (window.getSelection) {
-    //        selectedText = window.getSelection();
-    //    } else if (document['selection']) {
-    //        selectedText = document['selection'].createRange().text;
-    //    }
-    //    console.log(selectedText,selectedText['focusOffset'], selectedText['anchorOffset'])
-    //    return [selectedText['focusOffset'], selectedText['anchorOffset']]
-    //    //console.log('selectedText:',selectedText,selectedText['focusOffset'],selectedText['anchorOffset'])
-    //}
-    /**离开文本区域，判断是否有选择的文字*/
-    //private mouseOut():void{
-    //    console.log('mouseOut',this.getSelection())
-    //}
 
     render() {
         //console.log('render',this.state);
@@ -105,25 +105,37 @@ export default class RichEditor extends React.Component<any,any> {
                 <a href="javascript:;" onClick={this.execCommand.bind(this,item.parm)}>{item.value}</a>
             </li>
         })
+        //ForeColor
         var getButtons = this.arrButtons.map((item, idx)=> {
             return  <button className="button" key={'button'+idx} onClick={this.execCommand.bind(this, item.parm)}>
                 <i className={item.className}></i>
             </button>
         })
-        //
+        var getColors = this.arrColors.map((item,idx)=>{
+            var style={background:item.value,color:item.value}
+            return <li key={"fontsize"+idx}>
+                <a href="javascript:;" style={style} onClick={self.execCommand.bind(self, 'ForeColor', item.value)}>colors</a>
+            </li>
+        })
         return (
-            <div className="body">
+            <div id='RichEditorArea'className="body">
                 <div className="edit-bar">
                     <div className="btn-group">
                         {getButtons}
                         <button className="button"
                                 onClick={()=>{
-                                document.execCommand('CreateLink', true, 'true');
-                                //document.execCommand('InsertInputText',true,"a212a");
-                                //this.props.onChangeUrlPanel((e)=>{self.setLink(e)})
+                                //self.setState({urlPanel:!self.state.urlPanel})
+                                this.props.onChangeUrlPanel((e)=>{self.setLink(e)})
                                 }}>
                             <i className="fa fa-url"></i>
                         </button>
+                    </div>
+                    <div className="btn-group drop-down">
+                        <button className="button">
+                            <i className="fa fa-pallet"></i>
+                            <i className="fa fa-caret-down"></i>
+                        </button>
+                        <ul>{getColors}</ul>
                     </div>
                     <div className="btn-group drop-down">
                         <button className="button">
@@ -156,9 +168,7 @@ export default class RichEditor extends React.Component<any,any> {
                         <i className="fa fa-eraser"></i>
                     </button>
                 </div>
-
-                <div className="edit-area"
-
+                <div id="textbox" className="edit-area"
                      ref="editor"
                      contentEditable={true}
                      dangerouslySetInnerHTML={{__html: this.state.html}}
@@ -167,7 +177,20 @@ export default class RichEditor extends React.Component<any,any> {
         )
     }
 }
+//onMouseUp ={this.onMouseUp.bind(this)}
+//<div id="textbox" className="edit-area"
+//     ref="editor"
+//     contentEditable={true}
+//     onMouseUp ={this.onMouseUp.bind(this)}
+//
+//     dangerouslySetInnerHTML={{__html: this.state.html}}
+//     onInput={this.emitChange.bind(this)}/>
+
 //焦点离开
+//onFocus ={this.onMouseUp.bind(this)}
+//onBlur ={this.onMove.bind(this)}
+//onBlur={this.mouseOut.bind(this)}
+//onMouseDown ={this.onMouseUp.bind(this)}
 //onBlur={this.mouseOut.bind(this)}
 //<button className="button"
 //        onClick={()=>{

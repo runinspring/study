@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import EditorDemo from './EditorDemo'
+//import EditorDemo from './type1/EditorDemo'
+import EditorDemo from './type2/EditorDemo'
 //import * as config from './config'
 
 //var config = require('../config/config');
