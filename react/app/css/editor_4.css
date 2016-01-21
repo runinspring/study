@@ -1,0 +1,223 @@
+@font-face {
+    font-family:'FontAwesome';
+    src:url('./fontawesome-webfont.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal
+}
+.edit{
+    min-width: 444px;
+}
+.edit .body{
+    border:1px solid #999999;
+}
+.edit .unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
+.edit .body .edit-bar{
+    border-bottom: solid 1px #dddddd;
+    background-color: #f2f2f2;
+    width: 100%;
+}
+.edit .body .edit-area{
+    outline:none;
+    margin: 4px 2px 2px 2px;
+    height: 300px;
+    word-break:break-all;
+    overflow:auto;
+}
+
+.edit .body .edit-bar .btn-group{
+    float: left;
+}
+.edit .body .edit-bar .button{
+    cursor:pointer;
+    border:none;
+    outline: none;
+    height: 22px;
+    line-height: 22px;
+    background: #f2f2f2;
+    display: inline-flex;
+    width: 34px;
+}
+.edit .body .edit-bar .button:hover{
+    background: #FFFFFF;
+    border:1px solid #0099cc;
+}
+.edit .body .edit-bar .button i{
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    line-height: 100%;
+}
+
+.edit .body .edit-bar .drop-down ul{
+    background: #ffffff;
+    border:1px solid #dddddd;
+    margin:0 0 14px 0px ;position: absolute;visibility: hidden;list-style:none;padding:0px;
+    z-index: 99;
+}
+.edit .body .edit-bar .drop-down:hover ul{
+    visibility: visible;
+}
+.edit .body .edit-bar .drop-down li{
+    border-bottom: solid 1px #e5edf2;
+    height: 120%;
+    line-height: 120%;
+}
+/*height: 24px;*/
+/*line-height: 24px;*/
+.edit .body .edit-bar .drop-down li:hover{
+    background: #f2f2f2;
+}
+/**下拉菜单取消下划线和颜色*/
+.edit .body .edit-bar .drop-down ul a{
+    margin: 4px 4px 4px 4px;
+    text-decoration:none;
+    color: #000000;
+    font-size: 14px;
+
+}
+/**输入 url 链接的面板*/
+.edit .urlPanel{
+    width: 100%;
+    background: #f2f2f2;
+    font-size: 12px;
+    color: #444444;
+    border-top: solid 1px #dddddd;
+}
+.edit .urlPanel .area{
+    margin: 2px 6px 4px 6px;
+}
+.edit .urlPanel .input{
+    width: 330px;
+    font-size: 12px;
+    border:1px solid #dddddd;
+    height: 20px;
+    line-height: 20px;
+    margin: 2px 0px 0 0px;
+    padding: 0 2px 0 2px;
+    padding-right: -200px;
+    white-space:nowrap;
+    display: inline-flex;
+}
+.edit .subButton{
+    cursor:pointer;
+    margin: 0 2px 0 2px;
+    outline: none;
+    border:none;
+    border:1px solid #235994;
+    color: #FFFFFF;
+    background: -webkit-gradient(linear, left top, left bottom, from(#2d7bcb), color-stop(0.5, #296dbd), to(#255dad));
+}
+.edit .subButton:active{
+    background: #235994;
+}
+/**图片面板*/
+.edit .imgPanel{
+    width: 100%;
+    background: #f2f2f2;
+    font-size: 12px;
+    color: #444444;
+    border-top: solid 1px #dddddd;
+}
+.edit .imgPanel .body-area{
+    width: 440px;
+}
+.edit .imgPanel .body-area .button-group{
+   float: left;  margin-top: 4px;
+}
+.edit .imgPanel .body-area .button-block{
+    width: 80px;
+    margin: 4px 4px 6px 4px;
+}
+.edit .imgPanel .body-area .ImageItem{
+    float: left;
+    height: 63px;
+}
+.edit .imgPanel .body-area .ImageItem .imagebody{
+    width: 80px;
+    height: 40px;
+    border:1px solid #999999;
+    margin: 2px 2px 2px 2px;
+}
+.edit .imgPanel .body-area .ImageItem .imgButton{
+    color: #FFFFFF;
+    margin: 0 2px 0 2px;
+    outline: none;
+    border:none;
+    border:1px solid #235994;
+    color: #FFFFFF;
+}
+.edit .imgPanel .body-area .ImageItem .imgButton{
+    cursor:pointer;
+    outline: none;
+    border:none;
+    background: #f2f2f2;
+    color: #235994;
+}
+.edit .imgPanel .body-area .ImageItem .imgButton:hover a{
+    text-decoration: underline;
+}
+.edit .imgPanel .body-area .ImageItem .imagebody .image{
+    width: 100%;
+    height: 100%;
+}
+.edit .fa {
+    display:inline-block;
+    font-family:FontAwesome;
+    font-style:normal;
+    font-weight:normal;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
+}
+.edit .fa-paragraph:before {
+    content:"\f1dd"
+}
+.edit .fa-caret-down:before {
+    content:"\f0d7"
+}
+.edit .fa-bold:before {
+    content:"\f032"
+}
+.edit .fa-italic:before {
+    content:"\f033"
+}
+.edit .fa-underline:before {
+    content:"\f0cd"
+}
+.edit .fa-strikethrough:before {
+    content:"\f0cc"
+}
+.edit .fa-text-height:before {
+    content:"\f034"
+}
+.edit .fa-list-ul:before {
+    content:"\f0ca"
+}
+.edit .fa-list-ol:before {
+    content:"\f0cb"
+}
+.edit .fa-align-left:before {
+    content:"\f036"
+}
+.edit .fa-eraser:before {
+    content:"\f12d"
+}
+.edit .fa-url:before {
+    content:"\f0c1"
+}
+.edit .fa-pallet:before {
+    content:"\f0c3"
+}
+.edit .fa-picture:before {
+    content:"\f03e"
+}

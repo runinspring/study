@@ -23,6 +23,11 @@ config = {
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader'
+            },
+            { test: /\.css$/, loader: "style!css"},
+            {
+                test: /css(\\|\/)[^\.]+\.(png|jpg)/,
+                loader: 'url-loader?limit=8192'
             }
         ]
     },

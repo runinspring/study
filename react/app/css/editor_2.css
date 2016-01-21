@@ -1,7 +1,6 @@
 @font-face {
     font-family:'FontAwesome';
     src:url('./fontawesome-webfont.ttf') format('truetype');
-url('./FontAwesome.otf');
     font-weight:normal;
     font-style:normal
 }
@@ -44,12 +43,12 @@ url('./FontAwesome.otf');
     outline: none;
     height: 22px;
     line-height: 22px;
-    background-color: #f2f2f2;
+    background: #f2f2f2;
     display: inline-flex;
     width: 34px;
 }
 .edit .body .edit-bar .button:hover{
-    background-color: #FFFFFF;
+    background: #FFFFFF;
     border:1px solid #0099cc;
 }
 .edit .body .edit-bar .button i{
@@ -59,9 +58,8 @@ url('./FontAwesome.otf');
     line-height: 100%;
 }
 
-
 .edit .body .edit-bar .drop-down ul{
-    background-color: #ffffff;
+    background: #ffffff;
     border:1px solid #dddddd;
     margin:0 0 14px 0px ;position: absolute;visibility: hidden;list-style:none;padding:0px;
     z-index: 99;
@@ -118,32 +116,33 @@ url('./FontAwesome.otf');
 }
 /**图片面板*/
 .edit .imgPanel{
-    width: 440px;
+    width: 100%;
     background: #f2f2f2;
     font-size: 12px;
     color: #444444;
     border-top: solid 1px #dddddd;
-
 }
-.edit .imgPanel .button-group{
-
+.edit .imgPanel .body-area{
+    width: 440px;
+}
+.edit .imgPanel .body-area .button-group{
    float: left;  margin-top: 4px;
 }
-.edit .imgPanel .button-block{
+.edit .imgPanel .body-area .button-block{
     width: 80px;
     margin: 4px 4px 6px 4px;
 }
-.edit .imgPanel .ImageItem{
+.edit .imgPanel .body-area .ImageItem{
     float: left;
     height: 63px;
 }
-.edit .imgPanel .ImageItem .imagebody{
+.edit .imgPanel .body-area .ImageItem .imagebody{
     width: 80px;
     height: 40px;
     border:1px solid #999999;
     margin: 2px 2px 2px 2px;
 }
-.edit .imgPanel .ImageItem .imgButton{
+.edit .imgPanel .body-area .ImageItem .imgButton{
     color: #FFFFFF;
     margin: 0 2px 0 2px;
     outline: none;
@@ -151,17 +150,17 @@ url('./FontAwesome.otf');
     border:1px solid #235994;
     color: #FFFFFF;
 }
-.edit .imgPanel .ImageItem .imgButton{
+.edit .imgPanel .body-area .ImageItem .imgButton{
     cursor:pointer;
     outline: none;
     border:none;
     background: #f2f2f2;
     color: #235994;
 }
-.edit .imgPanel .ImageItem .imgButton:hover a{
+.edit .imgPanel .body-area .ImageItem .imgButton:hover a{
     text-decoration: underline;
 }
-.edit .imgPanel .ImageItem .imagebody .image{
+.edit .imgPanel .body-area .ImageItem .imagebody .image{
     width: 100%;
     height: 100%;
 }

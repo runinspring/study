@@ -2,36 +2,36 @@ import * as React from 'react';
 import {PropTypes} from 'react';
 import UrlPanel from './UrlPanel';
 import ImagePanel from './image/ImagePanel';
+import PanelButton from './PanelButton';
+//import '../css/editor.css'
 export default class RichEditor extends React.Component<any,any> {
     constructor(props) {
         super(props);
         this.state = {
             html: this.props.content,
             urlPanel:false,
-            imgPanel:false
+            imgPanel:false,
+            imageUrls:[]
         }
-        this.target = this;
+        //this.target = this;
     }
-
-    private target:any;
+    /**使用该类的时候必须要写入的方法,可以通过 this.props 调用*/
+    public static propTypes = {
+        content: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+        getImages:PropTypes.func.isRequired
+    }
+    private execCommand(command, arg):void {
+        /**当前的对象，如果不是，不改变*/
+        document.execCommand(command, false, arg);
+    }
+    //private target:any;
     private emitChange() {
         //console.log(this)
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         this.props.onChange({target: {value: newHtml}})
     }
-
-    private execCommand(command, arg):void {
-        /**当前的对象，如果不是，不改变*/
-        document.execCommand(command, false, arg);
-    }
-
-    /**使用该类的时候必须要写入的方法,可以通过 this.props 调用*/
-    public static propTypes = {
-        content: PropTypes.string.isRequired,
-        onChange: PropTypes.func.isRequired
-    }
-
     private arrBlock = [
         {parm: 'P', value: 'Paragraph'},
         {parm: 'BLOCKQUOTE', value: 'Block Quote'},
@@ -75,14 +75,27 @@ export default class RichEditor extends React.Component<any,any> {
         {parm: 'insertOrderedList', className: 'fa fa-list-ol'},
         {parm: 'insertUnorderedList', className: 'fa fa-list-ul'}
     ];
+    /**从外层获取图片*/
+    private getImages(data){
+        //console.log('getImages:',data,this);
+        var urls = this.state.imageUrls.concat(data);
+        this.setState({imageUrls:urls})
+    }
+    /**删除图片集*/
+    private deleteImage(idx){
+        var urls = this.state.imageUrls;
+        var url1 = urls.slice(0,idx);
+        var url2 = urls.slice(idx+1);
+        var newurl = url1.concat(url2)
+        this.setState({imageUrls:newurl});
+    }
     /**设置链接 range是最开始的选择范围*/
     //private setLink(data):void {
     //    //console.log('setLint:',data);
     //    this.execCommand('CreateLink', data);
     //}
-
     render() {
-        //console.log('render',this.state);
+        //console.log('render');
         var self = this;
         var getFontSizeList = this.arrFontSize.map((item, idx)=> {
             return <li key={"fontsize"+idx}>
@@ -119,9 +132,14 @@ export default class RichEditor extends React.Component<any,any> {
                 }} onSubmit={(data)=>{self.execCommand('CreateLink', data);}}/>
             }
         }
+        //this.props.getImages();
         var getImgPanel = function(){
             if(self.state.imgPanel){
+                //console.log('getImgPanel:',self.state.imageUrls)
                 return <ImagePanel onClosePanel={(url)=>{self.setState({imgPanel:false})}}
+                                   imageUrls={self.state.imageUrls}
+                                   getImages={self.props.getImages.bind(self,self.getImages.bind(self))}
+                                   deleteImage={self.deleteImage.bind(self)}
                                    submitImage={(data)=>{self.execCommand('InsertImage', data);}}/>
             }
         }
@@ -140,7 +158,6 @@ export default class RichEditor extends React.Component<any,any> {
                         <button className="button"
                                 onClick={()=>{
                                 self.setState({imgPanel:!self.state.imgPanel})
-                                //this.props.onChangeUrlPanel((e)=>{self.setLink(e)})
                                 }}>
                             <i className="fa fa-picture"></i>
                         </button>
