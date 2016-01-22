@@ -1,5 +1,5 @@
 .edit{
-    min-width: 350px;
+    width: 350px;
     height: 560px;
     border:1px solid #999999;
 }
@@ -12,7 +12,8 @@
 }
 /**可编辑区域*/
 .edit .edit-body{
-    max-height: 500px;
+	
+    max-height: 494px;
     outline:none;
     margin: 4px 2px 2px 2px;
     word-break:break-all;
@@ -21,8 +22,39 @@
 .edit .edit-bar .area{
     margin: 0 0 0 4px;
 }
+.edit .edit-bar .area .drop-down{
+    display:inline-flex;
+}
+.edit .edit-bar .area .drop-down ul{
+    background-color: #ffffff;
+    border:1px solid #e0eaf4;
+    margin:27px 0 0 -50px ;
+    position: absolute;
+    list-style:none;
+    padding:0px;
+    visibility: hidden;
+    z-index: 99;
+    color: #515151;
+}
+.edit .edit-bar .area .drop-down:hover ul{
+    visibility: visible;
+}
+.edit .edit-bar .area .drop-down li{
+	width: 48px;
+    border-bottom: solid 1px #e5edf2;
+}
+.edit .edit-bar .area .drop-down li:hover{
+    background: #f2f2f2;
+}
+.edit .edit-bar .area .drop-down li a{
+	width: 100%;
+	margin: 0 0 0 6px;
+	display: inline-block; 
+    text-decoration:none;
+    color: #515151;
+}
+
 .edit .edit-bar .button{
-    text-align:center;
     margin: 2px 0 2px 2px;
     cursor:pointer;
     outline: none;
@@ -30,27 +62,65 @@
     background: #ffffff;
     border:none;
     padding: 0 0 0 0;
-    text-align: center;
+    text-align: left;    
+    height: 25px;
+    line-height: 25px;
+}
+.edit .subButton{
+    min-width: 40px;
+    cursor:pointer;
+    margin: 0 2px 0 2px;
+    outline: none;
+    border:none;
+   
+    color: #FFFFFF;
+    background:#70c8f3;
+}
+/*background: -webkit-gradient(linear, left top, left bottom, from(#2d7bcb), color-stop(0.5, #296dbd), to(#255dad));*/
+.edit .subButton:active{
+    background: #00b1ff;
 }
 .edit .panel-color{
     height: 30px;
-    margin: 0 6px 0 6px;
+    margin: 0 10px 0 7px;
     border-top: solid 1px #dddddd;;
 }
 .edit .panel-color .item-color{
-    width: 40px;
+    width: 43px;
     height: 20px;
     margin: 5px 4px 0 0;
     border-radius: 3px;
     border: solid 2px #dddddd;
 }
 .edit .panel-color .item-color:hover{
-    width: 40px;
+    width: 43px;
     height: 20px;
     border: solid 2px #6bc7f6;
 }
+.edit .panel-url{
+    height: 60px;
+    margin: 0 10px 0 7px;
+    border-top: solid 1px #dddddd;;
+}
+.edit .panel-url .input{
+    width: 280px;
+    font-size: 12px;
+    border:1px solid #dddddd;
+    height: 20px;
+    line-height: 20px;
+    margin: 5px 0px 0 0px;
+    padding: 0 2px 0 2px;
+    padding-right: -200px;
+    white-space:nowrap;
+    display: inline-flex;
+}
+.edit .icon a{
+    color: #515151;
+    font-style: normal;
+    margin-left: 4px;
+}
 .edit .icon{
-    background-image: url(./background.png);
+    background-image: url(./rich_edit_2016_background.png);
     width: 25px;
     height: 25px;
 }
@@ -99,6 +169,9 @@
 .edit .fa-link:hover{
     background-position: -175px -25px;
 }
+.edit .fa-link-hover{
+    background-position: -175px -25px;
+}
 .edit .fa-center{
     background-position: 0px -50px;
 }
@@ -126,8 +199,13 @@
 .edit .fa-size{
     background-position: 0px -75px;
 }
-.edit .fa-size:hover{
-    background-position: -25px -75px;
+.edit .fa-list-border{
+    width: 50px;
+    background-position: -150px -75px;
+}
+.edit .fa-list-border:hover{
+    width: 50px;
+    background-position: -200px -75px;
 }
 
 

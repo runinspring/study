@@ -18,7 +18,7 @@ export default class ItemColor extends React.Component<any,any> {
             background:this.props.color
         }
         //console.log(123,this.props.color)
-        return (<button style={style} className="button item-color" onClick={()=>{
+        return (<button style={style} className="ed-button ed-item-color" onClick={()=>{
         //console.log(self.props.color)
         self.props.submitColor(self.props.color)
         }}>

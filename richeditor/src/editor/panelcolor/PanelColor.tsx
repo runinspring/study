@@ -10,7 +10,7 @@ export default class PanelColor extends React.Component<any,any> {
         show:PropTypes.bool.isRequired,
         submitColor:PropTypes.func.isRequired
     }
-    private colors=['#000000','#ff0000','#ff00ff','#ffff00','#ffffff','#0000ff']
+    private colors=['#ff0000','#0000ff','#fa800a','#00ff18','#ff00ff','#ffff00','#000000']
 
     render() {
         var self = this;

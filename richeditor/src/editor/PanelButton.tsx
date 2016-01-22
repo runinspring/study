@@ -27,7 +27,7 @@ export default class PanelButton extends React.Component<any,any> {
         }
         //console.log(122,className)
         return (
-            <button className="button" onClick={this.props.clickTrigger}>
+            <button className="ed-button" onClick={this.props.clickTrigger}>
                 <i className={className}></i>
             </button>)
     }

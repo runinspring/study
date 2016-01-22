@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 //import EditorDemo from './type1/EditorDemo'
-import EditorDemo from './type5/EditorDemo'
+import Demo from './Demo'
 //import * as config from './config'
 
 //var config = require('../config/config');
@@ -17,7 +17,7 @@ class Main extends React.Component<any,any> {
     render(){
         return(
             <div>
-                <EditorDemo/>
+                <Demo/>
             </div>
         )
     }
