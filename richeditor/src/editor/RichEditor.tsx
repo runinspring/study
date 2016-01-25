@@ -126,7 +126,7 @@ export default class RichEditor extends React.Component<any,any> {
         if(this.state.panelColor) maxHeight-=31;
         if(this.state.panelUrl) maxHeight-=61;
         var styleEditBody = {
-            'maxHeight':maxHeight+ 'px'
+            'height':maxHeight+ 'px'
         }
 
 
