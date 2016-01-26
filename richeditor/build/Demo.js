@@ -10,12 +10,21 @@ var Demo = (function (_super) {
     __extends(Demo, _super);
     function Demo(props) {
         _super.call(this, props);
+        this.state = {
+            test: true
+        };
+        document.onkeydown = function (e) {
+            console.log(121, e.keyCode);
+        };
     }
     Demo.prototype.getImages = function (callBack) {
         callBack(['http://img.popoho.com/UploadPic/2011-11/20111123112429518.jpg']);
     };
     Demo.prototype.getUrl = function (callBack) {
         callBack('http://baidu.com');
+    };
+    Demo.prototype.changeTest = function () {
+        this.setState({ 'test': !this.state.test });
     };
     Demo.prototype.render = function () {
         var self = this;

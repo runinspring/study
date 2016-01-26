@@ -3,6 +3,12 @@ import RichEditor from './editor/RichEditor'
 export default class Demo extends React.Component<any,any> {
     constructor(props){
         super(props);
+        this.state = {
+            test:true
+        }
+        document.onkeydown = function(e){
+           console.log(121,e.keyCode)
+        }
     }
     //'http://img.popoho.com/UploadPic/2011-10/20111024132221149.jpg'
     //'http://img.popoho.com/UploadPic/2011-12/201112149542404.jpg',
@@ -17,10 +23,22 @@ export default class Demo extends React.Component<any,any> {
     private getUrl(callBack:Function):void{
         callBack('http://baidu.com');
     }
+    private changeTest():void{
+        this.setState({'test':!this.state.test})
+    }
+
     render(){
         var self = this;
+        //if(this.state.test){
+        //    return(
+        //        <div>
+        //            <button onClick={this.changeTest.bind(this)}>test</button>
+        //        </div>
+        //    )
+        //}
         return(
             <div>
+
                 <RichEditor content="测试文字测试文字" height={560} width={350} border={false} getImages={this.getImages.bind(this)} getUrl={this.getUrl.bind(this)} onChange={(e)=>{console.log(e.target.value)}}/>
             </div>
         )

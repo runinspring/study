@@ -41,6 +41,17 @@ var RichEditor = (function (_super) {
             this.state.border = 0;
         }
     }
+    RichEditor.prototype.componentDidMount = function () {
+        document.getElementById('textbox').focus();
+        document.onkeydown = function (e) {
+            if (e.ctrlKey && e.keyCode == 90) {
+                e.preventDefault();
+            }
+        };
+    };
+    RichEditor.prototype.componentWillUnmount = function () {
+        document.onkeydown = null;
+    };
     RichEditor.prototype.execCommand = function (command, arg) {
         document.execCommand(command, false, arg);
     };
@@ -93,6 +104,9 @@ var RichEditor = (function (_super) {
         }
         this.insert(str);
     };
+    RichEditor.prototype.showInfo = function () {
+        console.log('showInfo');
+    };
     RichEditor.prototype.render = function () {
         var self = this;
         var styleAll = {
@@ -106,15 +120,15 @@ var RichEditor = (function (_super) {
         if (this.state.panelUrl)
             maxHeight -= 61;
         var styleEditBody = {
-            'maxHeight': maxHeight + 'px'
+            'height': maxHeight + 'px'
         };
         var getFontSizeList = this.arrFontSize.map(function (item, idx) {
             var style = { 'fontSize': idx * 3 + 14 };
             return React.createElement("li", {key: "fontsize" + idx, onClick: self.execCommand.bind(self, 'fontSize', item.parm)}, React.createElement("a", {href: "javascript:;", style: style}, item.value, "   "));
         });
-        return (React.createElement("div", {className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar"}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, upClass: "ed-icon ed-color", downClass: "ed-icon ed-color-hover", clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }}), React.createElement("div", {className: "drop-down"}, React.createElement("button", {className: "ed-button"}, React.createElement("i", {className: "ed-icon ed-list-border"})), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "bold")}, React.createElement("i", {className: "ed-icon ed-bold"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "italic")}, React.createElement("i", {className: "ed-icon ed-italic"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "underline")}, React.createElement("i", {className: "ed-icon ed-underline"}))), React.createElement("div", {className: "area"}, React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyLeft")}, React.createElement("i", {className: "ed-icon ed-left"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyCenter")}, React.createElement("i", {className: "ed-icon ed-center"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyRight")}, React.createElement("i", {className: "ed-icon ed-right"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "insertOrderedList")}, React.createElement("i", {className: "ed-icon ed-list"})), React.createElement("button", {className: "ed-button", onClick: function () {
+        return (React.createElement("div", {className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar"}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, upClass: "ed-icon ed-color", downClass: "ed-icon ed-color-hover", clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }}), React.createElement("div", {className: "drop-down"}, React.createElement("button", {className: "ed-button"}, React.createElement("i", {className: "ed-icon ed-list-border"})), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "bold"), onMouseOver: this.showInfo.bind(this)}, React.createElement("i", {className: "ed-icon ed-bold"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "italic")}, React.createElement("i", {className: "ed-icon ed-italic"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "underline")}, React.createElement("i", {className: "ed-icon ed-underline"}))), React.createElement("div", {className: "area"}, React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyLeft")}, React.createElement("i", {className: "ed-icon ed-left"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyCenter")}, React.createElement("i", {className: "ed-icon ed-center"})), React.createElement("button", {className: "ed-button", onClick: this.execCommand.bind(this, "justifyRight")}, React.createElement("i", {className: "ed-icon ed-right"})), React.createElement("button", {className: "ed-button", onClick: function () {
             self.saveRange();
-            self.insert("<hr color=#e9e9e9><br>");
+            self.insert("<hr color=#e9e9e9 size=1><br>");
         }}, React.createElement("i", {className: "ed-icon ed-hr"})), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, upClass: "ed-icon ed-link", downClass: "ed-icon ed-link-hover", clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }}), React.createElement("button", {className: "ed-button", onClick: this.props.getImages.bind(this, this.getImages.bind(this))}, React.createElement("i", {className: "ed-icon ed-image"}))), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insert(value); }})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));
     };
     RichEditor.propTypes = {

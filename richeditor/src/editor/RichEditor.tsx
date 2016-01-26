@@ -28,8 +28,39 @@ export default class RichEditor extends React.Component<any,any> {
         }else{
             this.state.border = 0;
         }
+
+
+        //window.onkeydown = function(e){
+        //    console.log(1231232);
+        //}
+        //document.onkeydown = function(e){
+        //    console.log('editor',this,e.keyCode)
+        //}.bind(this);
+        //document.onkeydown = this.onKeyDownHandler.bind(this);
         //console.log(121,this.state.border)
         //this.target = this;
+    }
+    /**
+     * 在组件被加载时调用
+     */
+    componentDidMount() {
+        document.getElementById('textbox').focus();
+        //this.insert(' ')
+        document.onkeydown = function(e){
+            //console.log('onKeyDownHandler')
+            if(e.ctrlKey && e.keyCode==90){
+                e.preventDefault();//阻止ctrl+z
+                //console.log('zzz')
+            }
+        }
+    }
+
+    /**
+     * 在组件被卸载时调用
+     */
+    componentWillUnmount() {
+        document.onkeydown = null;
+
     }
 
     /**使用该类的时候必须要写入的方法,可以通过 this.props 调用*/
@@ -38,7 +69,6 @@ export default class RichEditor extends React.Component<any,any> {
         getImages:PropTypes.func.isRequired,
         getUrl:PropTypes.func.isRequired
     }
-
     /**改变样式*/
     private execCommand(command, arg):void {
         document.execCommand(command, false, arg);
@@ -50,7 +80,6 @@ export default class RichEditor extends React.Component<any,any> {
         var newHtml = editor['innerHTML'];
         this.props.onChange({target: {value: newHtml}})
     }
-
     private range:any;
 
     /**保存选择区域*/
@@ -104,14 +133,17 @@ export default class RichEditor extends React.Component<any,any> {
         }
         this.insert(str);
     }
-
+    /**鼠标移到上面显示提示文字*/
+    private showInfo():void{
+        console.log('showInfo')
+    }
     private arrFontSize = [
         {parm: 1, value: '1'},{parm: 2, value: '2'},{parm: 3, value: '3'},{parm: 4, value: '4'},{parm: 5, value: '5'},{parm: 6, value: '6'},{parm: 7, value: '7'}
     ];
 
 
     render() {
-        //console.log('render',this.state)
+        //console.log('render')
         //560  496 顶部栏默认高 66
         var self = this;
         var styleAll={
@@ -154,7 +186,7 @@ export default class RichEditor extends React.Component<any,any> {
                             </button>
                             <ul> {getFontSizeList} </ul>
                         </div>
-                        <button className="ed-button" onClick={this.execCommand.bind(this,"bold")}>
+                        <button className="ed-button" onClick={this.execCommand.bind(this,"bold")} onMouseOver={this.showInfo.bind(this)}>
                             <i className="ed-icon ed-bold"></i>
                         </button>
                         <button className="ed-button" onClick={this.execCommand.bind(this,"italic")}>
@@ -175,12 +207,10 @@ export default class RichEditor extends React.Component<any,any> {
                         <button className="ed-button" onClick={this.execCommand.bind(this,"justifyRight")}>
                             <i className="ed-icon ed-right"></i>
                         </button>
-                        <button className="ed-button" onClick={this.execCommand.bind(this,"insertOrderedList")}>
-                            <i className="ed-icon ed-list"></i>
-                        </button>
+
                         <button className="ed-button" onClick={()=>{
                             self.saveRange();
-                            self.insert("<hr color=#e9e9e9><br>")
+                            self.insert("<hr color=#e9e9e9 size=1><br>")
                         }}>
                             <i className="ed-icon ed-hr"></i>
                         </button>
@@ -211,3 +241,6 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
 }
+//<button className="ed-button" onClick={this.execCommand.bind(this,"insertOrderedList")}>
+//    <i className="ed-icon ed-list"></i>
+//</button>

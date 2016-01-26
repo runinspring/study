@@ -75,8 +75,8 @@ export default class PanelUrl extends React.Component<any,any> {
                        onBlur={(e)=>{self.onBlur(e,self.defaultUrl)}}
                        onFocus={(e)=>{self.onFocus(e,self.defaultUrl)}}
                 />
-                <button className="ed-subButton" style={styleButton} onClick={()=>{self.props.getUrl(self.getUrl.bind(self))}}>+</button>
             </div>
         </div>)
     }
 }
+//<button className="ed-subButton" style={styleButton} onClick={()=>{self.props.getUrl(self.getUrl.bind(self))}}>+</button>
