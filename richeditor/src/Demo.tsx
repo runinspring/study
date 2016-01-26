@@ -6,10 +6,20 @@ export default class Demo extends React.Component<any,any> {
         this.state = {
             test:true
         }
-        document.onkeydown = function(e){
-           console.log(121,e.keyCode)
-        }
+        //document.onkeydown = function(e){
+        //   console.log(121,e.keyCode)
+        //}
     }
+    componentDidMount() {
+        var rd =  document.getElementById('rd');
+        console.log(12312,rd)
+        rd.style.position = 'absolute'
+        rd.style.left = 100 + 'px';
+        rd.style.top = 80 + 'px';
+        //this.insert(' ')
+
+    }
+
     //'http://img.popoho.com/UploadPic/2011-10/20111024132221149.jpg'
     //'http://img.popoho.com/UploadPic/2011-12/201112149542404.jpg',
     //'http://img.popoho.com/UploadPic/2011-12/201112149545717.jpg',
@@ -26,7 +36,6 @@ export default class Demo extends React.Component<any,any> {
     private changeTest():void{
         this.setState({'test':!this.state.test})
     }
-
     render(){
         var self = this;
         //if(this.state.test){
@@ -37,8 +46,7 @@ export default class Demo extends React.Component<any,any> {
         //    )
         //}
         return(
-            <div>
-
+            <div id='rd'>
                 <RichEditor content="测试文字测试文字" height={560} width={350} border={false} getImages={this.getImages.bind(this)} getUrl={this.getUrl.bind(this)} onChange={(e)=>{console.log(e.target.value)}}/>
             </div>
         )

@@ -13,10 +13,14 @@ var Demo = (function (_super) {
         this.state = {
             test: true
         };
-        document.onkeydown = function (e) {
-            console.log(121, e.keyCode);
-        };
     }
+    Demo.prototype.componentDidMount = function () {
+        var rd = document.getElementById('rd');
+        console.log(12312, rd);
+        rd.style.position = 'absolute';
+        rd.style.left = 100 + 'px';
+        rd.style.top = 80 + 'px';
+    };
     Demo.prototype.getImages = function (callBack) {
         callBack(['http://img.popoho.com/UploadPic/2011-11/20111123112429518.jpg']);
     };
@@ -28,7 +32,7 @@ var Demo = (function (_super) {
     };
     Demo.prototype.render = function () {
         var self = this;
-        return (React.createElement("div", null, React.createElement(RichEditor_1["default"], {content: "测试文字测试文字", height: 560, width: 350, border: false, getImages: this.getImages.bind(this), getUrl: this.getUrl.bind(this), onChange: function (e) { console.log(e.target.value); }})));
+        return (React.createElement("div", {id: 'rd'}, React.createElement(RichEditor_1["default"], {content: "测试文字测试文字", height: 560, width: 350, border: false, getImages: this.getImages.bind(this), getUrl: this.getUrl.bind(this), onChange: function (e) { console.log(e.target.value); }})));
     };
     return Demo;
 }(React.Component));
