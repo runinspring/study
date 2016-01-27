@@ -39,6 +39,9 @@ export default class RichEditor extends React.Component<any,any> {
      */
     componentDidMount() {
         document.getElementById('textbox').focus();
+
+        var selection = window.getSelection ? window.getSelection() : document['selection'];
+        selection.collapseToEnd();
         //this.insert(' ')
         document.onkeydown = function (e) {
             //console.log('onKeyDownHandler')
@@ -84,6 +87,19 @@ export default class RichEditor extends React.Component<any,any> {
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
         //console.log('range',this.range);
+    }
+    /**设置字号大小*/
+    private setFontsize(size,change):void{
+        document.execCommand('fontSize', false, size);
+        var fontElements = document.getElementsByTagName("font");
+        for (var i = 0, len = fontElements.length; i < len; ++i){
+            //console.log(fontElements[i].size , size)
+            if(fontElements[i].size == size){
+                fontElements[i].removeAttribute("size");
+                fontElements[i].style.fontSize = change;
+            }
+        }
+        this.emitChange();
     }
 
     /**插入内容*/
@@ -171,8 +187,8 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     private arrFontSize = [
-        {parm: 1, value: '1'}, {parm: 2, value: '2'}, {parm: 3, value: '3'}, {parm: 4, value: '4'},
-        {parm: 5, value: '5'}, {parm: 6, value: '6'}, {parm: 7, value: '7'}
+        {parm: 2, value: '12px',change:'12px'}, {parm: 3, value: '14px',change:'14px'}, {parm: 4, value: '16px',change:'16px'},
+        {parm: 5, value: '18px',change:'18px'}, {parm: 6, value: '20px',change:'20px'}, {parm: 7, value: '22px',change:'22px'}
     ];
     private dataButtons = {
         commonFuns: {showInfo: this.showInfo.bind(this), hideInfo: this.hideInfo.bind(this)},
@@ -215,9 +231,13 @@ export default class RichEditor extends React.Component<any,any> {
             var style = {'fontSize': idx * 3 + 14}
             //style={style}
             //<a href="javascript:;">{"字号: "+item.value}</a>
-            return <li key={"fontsize"+idx} onClick={self.execCommand.bind(self, 'fontSize', item.parm)}>
-                <a href="javascript:;" style={style}>{item.value}   </a>
+
+            return <li key={"fontsize"+idx} onClick={(e)=>{self.setFontsize(item.parm,item.change)}}>
+                <a href="javascript:;">{item.value}   </a>
             </li>
+            //return <li key={"fontsize"+idx} onClick={self.execCommand.bind(self, 'fontSize', item.parm)}>
+            //    <a href="javascript:;" style={style}>{item.value}   </a>
+            //</li>
         })
         return (
             <div id="richeditor" className="richeditor" style={styleAll}>

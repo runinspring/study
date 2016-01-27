@@ -37,3 +37,5 @@ http://codego.net/124097/
 http://www.xue163.com/588880/39068/390680532.html
 修改内容
 http://zhidao.baidu.com/link?url=wCZPYnptiaAQZpqNxWlBBnRCpwSQO1YcSb2RFRLc0ZdlLLPEPcKxJjS97rFbuu_DeF7yP0rvFFfxCu5xD7y_qgbhdoP0V6WdofYpqw73RVe
+字号大小
+http://bbs.blueidea.com/forum.php?mod=viewthread&tid=1644377

@@ -15,11 +15,6 @@ var Demo = (function (_super) {
         };
     }
     Demo.prototype.componentDidMount = function () {
-        var rd = document.getElementById('rd');
-        console.log(12312, rd);
-        rd.style.position = 'absolute';
-        rd.style.left = 100 + 'px';
-        rd.style.top = 80 + 'px';
     };
     Demo.prototype.getImages = function (callBack) {
         callBack(['http://img.popoho.com/UploadPic/2011-11/20111123112429518.jpg']);

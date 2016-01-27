@@ -48,7 +48,6 @@
     padding:0px;
     visibility: hidden;
     z-index: 10;
-    color: #515151;
 }
 .richeditor .edit-bar .ed-area .drop-down:hover ul{
     visibility: visible;
@@ -65,7 +64,7 @@
     margin: 0 0 0 6px;
     display: inline-block;
     text-decoration:none;
-    color: #515151;
+    color: #7a94a6;
 }
 
 .richeditor .edit-bar .ed-button{
