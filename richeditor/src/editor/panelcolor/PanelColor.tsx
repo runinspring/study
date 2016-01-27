@@ -18,7 +18,7 @@ export default class PanelColor extends React.Component<any,any> {
             return (<div/>)
         }
         //var top = {margin:'4px'};
-        return (<div className="panel-color">
+        return (<div className="ed-panel-color">
             {this.colors.map((item,idx)=>{
                 return <ItemColor key={'itemcolor'+idx} color={item} submitColor={self.props.submitColor}/>
                 })}

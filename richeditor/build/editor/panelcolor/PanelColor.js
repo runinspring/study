@@ -18,7 +18,7 @@ var PanelColor = (function (_super) {
         if (!this.props.show) {
             return (React.createElement("div", null));
         }
-        return (React.createElement("div", {className: "panel-color"}, this.colors.map(function (item, idx) {
+        return (React.createElement("div", {className: "ed-panel-color"}, this.colors.map(function (item, idx) {
             return React.createElement(ItemColor_1["default"], {key: 'itemcolor' + idx, color: item, submitColor: self.props.submitColor});
         })));
     };

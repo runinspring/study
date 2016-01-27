@@ -60,8 +60,6 @@ var RichEditor = (function (_super) {
     }
     RichEditor.prototype.componentDidMount = function () {
         document.getElementById('textbox').focus();
-        var selection = window.getSelection ? window.getSelection() : document['selection'];
-        selection.collapseToEnd();
         document.onkeydown = function (e) {
             if (e.ctrlKey && e.keyCode == 90) {
                 e.preventDefault();
@@ -88,7 +86,7 @@ var RichEditor = (function (_super) {
         document.execCommand('fontSize', false, size);
         var fontElements = document.getElementsByTagName("font");
         for (var i = 0, len = fontElements.length; i < len; ++i) {
-            if (fontElements[i].size == size) {
+            if (fontElements[i].size == size.toString()) {
                 fontElements[i].removeAttribute("size");
                 fontElements[i].style.fontSize = change;
             }
@@ -130,11 +128,9 @@ var RichEditor = (function (_super) {
     RichEditor.prototype.getImages = function (data) {
         var str = '';
         for (var i = 0, len = data.length; i < len; i++) {
-            str += ('<br><img width="95%" src="' + data[i] + '"><br clear=left>');
+            str += ('<br><img width="98%" src="' + data[i] + '"><br clear=left>');
         }
         this.insert(str);
-    };
-    RichEditor.prototype.getBarPos = function (e) {
     };
     RichEditor.prototype.showInfo = function (e, value) {
         clearInterval(this.idxInterval);
@@ -176,9 +172,9 @@ var RichEditor = (function (_super) {
         };
         var getFontSizeList = this.arrFontSize.map(function (item, idx) {
             var style = { 'fontSize': idx * 3 + 14 };
-            return React.createElement("li", {key: "fontsize" + idx, onClick: function (e) { self.setFontsize(item.parm, item.change); }}, React.createElement("a", {href: "javascript:;"}, item.value, "   "));
+            return React.createElement("li", {key: "fontsize" + idx, onClick: function () { self.setFontsize(item.parm, item.change); }}, React.createElement("a", {href: "javascript:;"}, item.value, "   "));
         });
-        return (React.createElement("div", {id: "richeditor", className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar", onMouseMove: this.getBarPos.bind(this)}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, datas: this.dataButtons.color, clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement("div", {className: "drop-down"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.fontSize, clickTrigger: function () { }, commonFuns: this.dataButtons.commonFuns}), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.bold, clickTrigger: this.execCommand.bind(this, "bold"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.italic, clickTrigger: this.execCommand.bind(this, "italic"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.underline, clickTrigger: this.execCommand.bind(this, "underline"), commonFuns: this.dataButtons.commonFuns})), React.createElement("div", {className: "area"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyLeft, clickTrigger: this.execCommand.bind(this, "justifyLeft"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyCenter, clickTrigger: this.execCommand.bind(this, "justifyCenter"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyRight, clickTrigger: this.execCommand.bind(this, "justifyRight"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.hr, clickTrigger: function () {
+        return (React.createElement("div", {id: "richeditor", className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar"}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, datas: this.dataButtons.color, clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement("div", {className: "drop-down"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.fontSize, clickTrigger: function () { }, commonFuns: this.dataButtons.commonFuns}), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.bold, clickTrigger: this.execCommand.bind(this, "bold"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.italic, clickTrigger: this.execCommand.bind(this, "italic"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.underline, clickTrigger: this.execCommand.bind(this, "underline"), commonFuns: this.dataButtons.commonFuns})), React.createElement("div", {className: "area"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyLeft, clickTrigger: this.execCommand.bind(this, "justifyLeft"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyCenter, clickTrigger: this.execCommand.bind(this, "justifyCenter"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyRight, clickTrigger: this.execCommand.bind(this, "justifyRight"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.hr, clickTrigger: function () {
             self.saveRange();
             self.insert("<hr color=#e9e9e9 size=1><br>");
         }, commonFuns: this.dataButtons.commonFuns}), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, datas: this.dataButtons.link, clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.image, clickTrigger: this.props.getImages.bind(this, this.getImages.bind(this)), commonFuns: this.dataButtons.commonFuns})), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insert(value); }}), React.createElement("div", {id: "tip", className: "ed-info-hide"})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));

@@ -14,7 +14,7 @@
 .richeditor .edit-body{
     max-height: 494px;
     outline:none;
-    margin: 4px 2px 2px 2px;
+    margin: 4px 6px 2px 2px;
     word-break:break-all;
     overflow:auto;
 }
@@ -95,24 +95,26 @@
 }
 .richeditor .ed-panel-color{
     height: 30px;
-    margin: 0 10px 0 7px;
+    margin: 0 4px 0 4px;
+    padding: 0 8px 0 3px;
     border-top: solid 1px #dddddd;;
 }
-.richeditor .panel-color .ed-item-color{
+.richeditor .ed-panel-color .ed-item-color{
     width: 43px;
     height: 20px;
     margin: 5px 4px 0 0;
     border-radius: 3px;
     border: solid 2px #dddddd;
 }
-.richeditor .panel-color .ed-item-color:hover{
+.richeditor .ed-panel-color .ed-item-color:hover{
     width: 43px;
     height: 20px;
     border: solid 2px #6bc7f6;
 }
 .richeditor .panel-url{
     height: 60px;
-    margin: 0 10px 0 7px;
+    margin: 0 4px 0 4px;
+    padding: 0 6px 0 3px;
     border-top: solid 1px #dddddd;;
 }
 .richeditor .panel-url .ed-input{

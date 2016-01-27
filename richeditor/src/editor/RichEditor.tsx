@@ -39,9 +39,8 @@ export default class RichEditor extends React.Component<any,any> {
      */
     componentDidMount() {
         document.getElementById('textbox').focus();
-
-        var selection = window.getSelection ? window.getSelection() : document['selection'];
-        selection.collapseToEnd();
+        //var selection = window.getSelection ? window.getSelection() : document['selection'];
+        //selection.collapseToEnd();
         //this.insert(' ')
         document.onkeydown = function (e) {
             //console.log('onKeyDownHandler')
@@ -93,8 +92,8 @@ export default class RichEditor extends React.Component<any,any> {
         document.execCommand('fontSize', false, size);
         var fontElements = document.getElementsByTagName("font");
         for (var i = 0, len = fontElements.length; i < len; ++i){
-            //console.log(fontElements[i].size , size)
-            if(fontElements[i].size == size){
+            if(fontElements[i].size == size.toString()){
+                //console.log('remove')
                 fontElements[i].removeAttribute("size");
                 fontElements[i].style.fontSize = change;
             }
@@ -141,18 +140,13 @@ export default class RichEditor extends React.Component<any,any> {
         //console.log(data);
         var str = '';
         for (var i = 0, len = data.length; i < len; i++) {
-            str += ('<br><img width="95%" src="' + data[i] + '"><br clear=left>');
+            str += ('<br><img width="98%" src="' + data[i] + '"><br clear=left>');
             //str+=('<img width="100%" src="'+data[i]+'">');
         }
         this.insert(str);
     }
 
     private idxInterval:any;
-
-    /**lark中有拖拽功能，位置会偏掉，需要计算工具条的位置*/
-    private getBarPos(e):void {
-        //console.log('barpos1',e.pageX,e.pageY)
-    }
 
     /**鼠标移到上面显示提示文字*/
     private showInfo(e, value):void {
@@ -232,7 +226,7 @@ export default class RichEditor extends React.Component<any,any> {
             //style={style}
             //<a href="javascript:;">{"字号: "+item.value}</a>
 
-            return <li key={"fontsize"+idx} onClick={(e)=>{self.setFontsize(item.parm,item.change)}}>
+            return <li key={"fontsize"+idx} onClick={()=>{self.setFontsize(item.parm,item.change)}}>
                 <a href="javascript:;">{item.value}   </a>
             </li>
             //return <li key={"fontsize"+idx} onClick={self.execCommand.bind(self, 'fontSize', item.parm)}>
@@ -241,7 +235,7 @@ export default class RichEditor extends React.Component<any,any> {
         })
         return (
             <div id="richeditor" className="richeditor" style={styleAll}>
-                <div className="edit-bar" onMouseMove={this.getBarPos.bind(this)}>
+                <div className="edit-bar">
                     <div className="ed-area">
                         <PanelButton show={this.state.panelColor} datas={this.dataButtons.color}
                                      clickTrigger={()=>{self.setState({panelColor:!self.state.panelColor})}}
@@ -250,7 +244,6 @@ export default class RichEditor extends React.Component<any,any> {
                         <div className="drop-down">
                             <SingleButton datas={this.dataButtons.fontSize} clickTrigger={()=>{}}
                                           commonFuns={this.dataButtons.commonFuns}/>
-
                             <ul> {getFontSizeList} </ul>
                         </div>
                         <SingleButton datas={this.dataButtons.bold} clickTrigger={this.execCommand.bind(this,"bold")}
