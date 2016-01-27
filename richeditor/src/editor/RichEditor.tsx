@@ -8,8 +8,10 @@ import './css/editor.css'
 export default class RichEditor extends React.Component<any,any> {
     constructor(props) {
         super(props);
+        //offset 是lark平台会有拖拽功能，需要一个偏移量,设置为true
         this.state = {
             html: this.props.content,
+            offset: true,
             panelColor: false,
             panelUrl: false
         }
@@ -131,28 +133,39 @@ export default class RichEditor extends React.Component<any,any> {
 
     private idxInterval:any;
 
+    /**lark中有拖拽功能，位置会偏掉，需要计算工具条的位置*/
+    private getBarPos(e):void {
+        //console.log('barpos1',e.pageX,e.pageY)
+    }
+
     /**鼠标移到上面显示提示文字*/
     private showInfo(e, value):void {
         //console.log('showInfo',value)
         clearInterval(this.idxInterval)
 
         var ed = document.getElementById('richeditor');
-        console.log(333,ed.style.left,ed.style.top)
+        var lf = ed.getBoundingClientRect().left;
+        var tp = ed.getBoundingClientRect().top;
+        if(!this.state.offset){//不需要偏移量
+            lf=0; tp=0;
+        }
+        //console.log(333,lf,tp)
 
         var tip = document.getElementById('tip');
         tip.className = 'ed-info-show';
-        tip.style.left = e.pageX + 15 + 'px';
-        tip.style.top = e.pageY - 8 + 'px';
+        tip.style.left = e.clientX - lf + 15 + 'px';
+        tip.style.top = e.clientY - tp + 8 + 'px';
         tip.innerHTML = value;
     }
 
     /**隐藏提示信息*/
     private hideInfo(e):void {
         //console.log('hideInfo')
-
         this.idxInterval = setInterval(()=> {
             var tip = document.getElementById('tip');
-            tip.className = 'ed-info-hide';
+            if(tip){
+                tip.className = 'ed-info-hide';
+            }
         }, 100)
         //console.log(this.idxInterval)
     }
@@ -208,7 +221,7 @@ export default class RichEditor extends React.Component<any,any> {
         })
         return (
             <div id="richeditor" className="richeditor" style={styleAll}>
-                <div className="edit-bar">
+                <div className="edit-bar" onMouseMove={this.getBarPos.bind(this)}>
                     <div className="ed-area">
                         <PanelButton show={this.state.panelColor} datas={this.dataButtons.color}
                                      clickTrigger={()=>{self.setState({panelColor:!self.state.panelColor})}}
