@@ -16,8 +16,8 @@ var RichEditor = (function (_super) {
     function RichEditor(props) {
         _super.call(this, props);
         this.arrFontSize = [
-            { parm: 2, value: '12px', change: '12px' }, { parm: 3, value: '14px', change: '14px' }, { parm: 4, value: '16px', change: '16px' },
-            { parm: 5, value: '18px', change: '18px' }, { parm: 6, value: '20px', change: '20px' }, { parm: 7, value: '22px', change: '22px' }
+            { parm: 2, value: '12', change: '12px' }, { parm: 3, value: '14', change: '14px' }, { parm: 4, value: '16', change: '16px' },
+            { parm: 5, value: '18', change: '18px' }, { parm: 6, value: '20', change: '20px' }, { parm: 7, value: '22', change: '22px' }
         ];
         this.dataButtons = {
             commonFuns: { showInfo: this.showInfo.bind(this), hideInfo: this.hideInfo.bind(this) },
@@ -59,7 +59,11 @@ var RichEditor = (function (_super) {
         }
     }
     RichEditor.prototype.componentDidMount = function () {
-        document.getElementById('textbox').focus();
+        setTimeout(function () {
+            if (document.getElementById('textbox')) {
+                document.getElementById('textbox').focus();
+            }
+        }, 500);
         document.onkeydown = function (e) {
             if (e.ctrlKey && e.keyCode == 90) {
                 e.preventDefault();
@@ -155,6 +159,8 @@ var RichEditor = (function (_super) {
             }
         }, 100);
     };
+    RichEditor.prototype.testPosition = function () {
+    };
     RichEditor.prototype.render = function () {
         var self = this;
         var styleAll = {
@@ -175,9 +181,8 @@ var RichEditor = (function (_super) {
             return React.createElement("li", {key: "fontsize" + idx, onClick: function () { self.setFontsize(item.parm, item.change); }}, React.createElement("a", {href: "javascript:;"}, item.value, "   "));
         });
         return (React.createElement("div", {id: "richeditor", className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar"}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, datas: this.dataButtons.color, clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement("div", {className: "drop-down"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.fontSize, clickTrigger: function () { }, commonFuns: this.dataButtons.commonFuns}), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.bold, clickTrigger: this.execCommand.bind(this, "bold"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.italic, clickTrigger: this.execCommand.bind(this, "italic"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.underline, clickTrigger: this.execCommand.bind(this, "underline"), commonFuns: this.dataButtons.commonFuns})), React.createElement("div", {className: "area"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyLeft, clickTrigger: this.execCommand.bind(this, "justifyLeft"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyCenter, clickTrigger: this.execCommand.bind(this, "justifyCenter"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyRight, clickTrigger: this.execCommand.bind(this, "justifyRight"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.hr, clickTrigger: function () {
-            self.saveRange();
             self.insert("<hr color=#e9e9e9 size=1><br>");
-        }, commonFuns: this.dataButtons.commonFuns}), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, datas: this.dataButtons.link, clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.image, clickTrigger: this.props.getImages.bind(this, this.getImages.bind(this)), commonFuns: this.dataButtons.commonFuns})), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insert(value); }}), React.createElement("div", {id: "tip", className: "ed-info-hide"})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));
+        }, commonFuns: this.dataButtons.commonFuns}), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, datas: this.dataButtons.link, clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.image, clickTrigger: this.props.getImages.bind(this, this.getImages.bind(this)), commonFuns: this.dataButtons.commonFuns})), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insert(value); }}), React.createElement("div", {id: "tip", className: "ed-info-hide"})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), onKeyUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));
     };
     RichEditor.propTypes = {
         onChange: react_1.PropTypes.func.isRequired,

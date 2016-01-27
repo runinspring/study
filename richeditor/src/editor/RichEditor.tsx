@@ -38,27 +38,35 @@ export default class RichEditor extends React.Component<any,any> {
      * 在组件被加载时调用
      */
     componentDidMount() {
-        var ed =document.getElementById('textbox');
+
+        setTimeout(()=>{
+            if(document.getElementById('textbox')){
+                //console.log('init3')
+                //document.getElementById('textbox')['flur']();
+                document.getElementById('textbox').focus();
+                //this.insert("")
+            }
+        },500)
         //ed.focus();
         //document.getElementById('textbox').focus();
         //var selection = window.getSelection ? window.getSelection() : document['selection'];
         //selection.collapseToEnd();
         //this.insert(' ')
         //设置焦点进入末尾
-        var range,selection;
-        if(document.createRange){
-            range = document.createRange();
-            range.selectNodeContents(ed);
-            range.collapse(false);
-            selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }else if(document['selection']){//IE 8 and lower
-            range = document.body['createTextRange']();
-            range.moveToElementText(ed);
-            range.collapse(false);
-            range.select();
-        }
+        //var range,selection;
+        //if(document.createRange){
+        //    range = document.createRange();
+        //    range.selectNodeContents(ed);
+        //    range.collapse(false);
+        //    selection = window.getSelection();
+        //    selection.removeAllRanges();
+        //    selection.addRange(range);
+        //}else if(document['selection']){//IE 8 and lower
+        //    range = document.body['createTextRange']();
+        //    range.moveToElementText(ed);
+        //    range.collapse(false);
+        //    range.select();
+        //}
         document.onkeydown = function (e) {
             //console.log('onKeyDownHandler')
             if (e.ctrlKey && e.keyCode == 90) {
@@ -102,7 +110,7 @@ export default class RichEditor extends React.Component<any,any> {
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-        console.log('range',this.range.startOffset,this.range.endOffset);
+        //console.log('range',this.range.startOffset,this.range.endOffset);
     }
     /**设置字号大小*/
     private setFontsize(size,change):void{
@@ -198,8 +206,8 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     private arrFontSize = [
-        {parm: 2, value: '12px',change:'12px'}, {parm: 3, value: '14px',change:'14px'}, {parm: 4, value: '16px',change:'16px'},
-        {parm: 5, value: '18px',change:'18px'}, {parm: 6, value: '20px',change:'20px'}, {parm: 7, value: '22px',change:'22px'}
+        {parm: 2, value: '12',change:'12px'}, {parm: 3, value: '14',change:'14px'}, {parm: 4, value: '16',change:'16px'},
+        {parm: 5, value: '18',change:'18px'}, {parm: 6, value: '20',change:'20px'}, {parm: 7, value: '22',change:'22px'}
     ];
     private dataButtons = {
         commonFuns: {showInfo: this.showInfo.bind(this), hideInfo: this.hideInfo.bind(this)},
@@ -216,7 +224,7 @@ export default class RichEditor extends React.Component<any,any> {
         image: {upClass: 'ed-icon ed-image', downClass: 'ed-icon ed-image', info: '插入图片'}
     }
     private testPosition():void{
-        console.log('testPosition')
+        //console.log('testPosition')
     }
 
     render() {
@@ -286,9 +294,8 @@ export default class RichEditor extends React.Component<any,any> {
                                       clickTrigger={this.execCommand.bind(this,"justifyRight")}
                                       commonFuns={this.dataButtons.commonFuns}/>
                         <SingleButton datas={this.dataButtons.hr} clickTrigger={()=>{
-
-                            self.insert("<hr color=#e9e9e9 size=1><br>")
-                        }} commonFuns={this.dataButtons.commonFuns}/>
+                            self.insert("<hr color=#e9e9e9 size=1><br>")}}
+                                      commonFuns={this.dataButtons.commonFuns}/>
                         <PanelButton show={this.state.panelUrl} datas={this.dataButtons.link}
                                      clickTrigger={()=>{self.setState({panelUrl:!self.state.panelUrl})}}
                                      commonFuns={this.dataButtons.commonFuns}
@@ -310,6 +317,7 @@ export default class RichEditor extends React.Component<any,any> {
                      ref="editor"
                      spellCheck={false}
                      onMouseUp={this.saveRange.bind(this)}
+                     onKeyUp={this.saveRange.bind(this)}
                      contentEditable={true}
                      dangerouslySetInnerHTML={{__html: this.state.html}}
                      onInput={this.emitChange.bind(this)}/>
