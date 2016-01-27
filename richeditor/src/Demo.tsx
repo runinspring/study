@@ -11,12 +11,11 @@ export default class Demo extends React.Component<any,any> {
         //}
     }
     componentDidMount() {
-        //var rd =  document.getElementById('rd');
-        ////console.log(12312,rd)
-        //rd.style.position = 'absolute'
-        //rd.style.left = 100 + 'px';
-        //rd.style.top = 80 + 'px';
-        //this.insert(' ')
+        var rd =  document.getElementById('rd');
+        //console.log(12312,rd)
+        rd.style.position = 'absolute'
+        rd.style.left = 0 + 'px';
+        rd.style.top = 10 + 'px';
 
     }
 

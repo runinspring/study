@@ -38,10 +38,27 @@ export default class RichEditor extends React.Component<any,any> {
      * 在组件被加载时调用
      */
     componentDidMount() {
-        document.getElementById('textbox').focus();
+        var ed =document.getElementById('textbox');
+        //ed.focus();
+        //document.getElementById('textbox').focus();
         //var selection = window.getSelection ? window.getSelection() : document['selection'];
         //selection.collapseToEnd();
         //this.insert(' ')
+        //设置焦点进入末尾
+        var range,selection;
+        if(document.createRange){
+            range = document.createRange();
+            range.selectNodeContents(ed);
+            range.collapse(false);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }else if(document['selection']){//IE 8 and lower
+            range = document.body['createTextRange']();
+            range.moveToElementText(ed);
+            range.collapse(false);
+            range.select();
+        }
         document.onkeydown = function (e) {
             //console.log('onKeyDownHandler')
             if (e.ctrlKey && e.keyCode == 90) {
@@ -85,7 +102,7 @@ export default class RichEditor extends React.Component<any,any> {
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-        //console.log('range',this.range);
+        console.log('range',this.range.startOffset,this.range.endOffset);
     }
     /**设置字号大小*/
     private setFontsize(size,change):void{
@@ -176,7 +193,7 @@ export default class RichEditor extends React.Component<any,any> {
             if(tip){
                 tip.className = 'ed-info-hide';
             }
-        }, 100)
+        }, 100);
         //console.log(this.idxInterval)
     }
 
@@ -197,6 +214,9 @@ export default class RichEditor extends React.Component<any,any> {
         hr: {upClass: 'ed-icon ed-hr', downClass: 'ed-icon ed-hr', info: '分隔线'},
         link: {upClass: 'ed-icon ed-link', downClass: 'ed-icon ed-link-hover', info: '创建链接'},
         image: {upClass: 'ed-icon ed-image', downClass: 'ed-icon ed-image', info: '插入图片'}
+    }
+    private testPosition():void{
+        console.log('testPosition')
     }
 
     render() {
@@ -266,7 +286,7 @@ export default class RichEditor extends React.Component<any,any> {
                                       clickTrigger={this.execCommand.bind(this,"justifyRight")}
                                       commonFuns={this.dataButtons.commonFuns}/>
                         <SingleButton datas={this.dataButtons.hr} clickTrigger={()=>{
-                            self.saveRange();
+
                             self.insert("<hr color=#e9e9e9 size=1><br>")
                         }} commonFuns={this.dataButtons.commonFuns}/>
                         <PanelButton show={this.state.panelUrl} datas={this.dataButtons.link}

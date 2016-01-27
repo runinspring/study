@@ -11,7 +11,7 @@ var PanelColor = (function (_super) {
     __extends(PanelColor, _super);
     function PanelColor(props) {
         _super.call(this, props);
-        this.colors = ['#ff0000', '#0000ff', '#fa800a', '#00ff18', '#ff00ff', '#ffff00', '#000000'];
+        this.colors = ['#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050', '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0', '#000000'];
     }
     PanelColor.prototype.render = function () {
         var self = this;

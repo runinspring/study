@@ -1,4 +1,4 @@
 node_modules/
-/richeditor/build
+build/
 .idea/
 *.psd/
