@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {PropTypes} from 'react';
 /**
- * 有弹出面板功能的按钮，有长期按下的状态
+ * 有长期按下状态的按钮，
  */
-export default class PanelButton extends React.Component<any,any> {
+export default class TypeButton extends React.Component<any,any> {
     constructor(props) {
         super(props)
         //console.log('urlPanel',this.props.idx)

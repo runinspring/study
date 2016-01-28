@@ -53,6 +53,7 @@ export default class Demo extends React.Component<any,any> {
         return(
             <div id='rd'>
                 <RichEditor content="测试文字测试文字" height={560} width={350} border={false}
+                            offset={false}
                             getImages={this.getImages.bind(this)}
                             getUrl={this.getUrl.bind(this)}
                             onChange={this.outPut.bind(this)}
