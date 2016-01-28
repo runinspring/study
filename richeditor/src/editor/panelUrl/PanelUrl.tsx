@@ -48,7 +48,7 @@ export default class PanelUrl extends React.Component<any,any> {
 
         //console.log(this.props.onSubmitUrl)
         this.props.onSubmitUrl(result)
-        console.log(result)
+        //console.log(result)
     }
     private getUrl(value):void{
         //console.log("getUrl:",value)

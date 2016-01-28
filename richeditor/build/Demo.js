@@ -29,9 +29,15 @@ var Demo = (function (_super) {
     Demo.prototype.changeTest = function () {
         this.setState({ 'test': !this.state.test });
     };
+    Demo.prototype.outPut = function (e) {
+        console.log('html:', e.target.value);
+    };
+    Demo.prototype.pureText = function (e) {
+        console.log('pure:', e.target.value);
+    };
     Demo.prototype.render = function () {
         var self = this;
-        return (React.createElement("div", {id: 'rd'}, React.createElement(RichEditor_1["default"], {content: "测试文字测试文字", height: 560, width: 350, border: false, getImages: this.getImages.bind(this), getUrl: this.getUrl.bind(this), onChange: function (e) { console.log(e.target.value); }})));
+        return (React.createElement("div", {id: 'rd'}, React.createElement(RichEditor_1["default"], {content: "测试文字测试文字", height: 560, width: 350, border: false, getImages: this.getImages.bind(this), getUrl: this.getUrl.bind(this), onChange: this.outPut.bind(this), onPureText: this.pureText.bind(this)})));
     };
     return Demo;
 }(React.Component));

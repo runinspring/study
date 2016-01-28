@@ -18,6 +18,7 @@
     margin: 4px 6px 2px 2px;
     word-break:break-all;
     overflow:auto;
+    overflow-x:hidden;
 }
 .richeditor .edit-bar .ed-info-hide{
     width: 0px;

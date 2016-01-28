@@ -88,6 +88,7 @@ export default class RichEditor extends React.Component<any,any> {
     public static propTypes = {
         onChange: PropTypes.func.isRequired,
         getImages: PropTypes.func.isRequired,
+        onPureText:PropTypes.func.isRequired,
         getUrl: PropTypes.func.isRequired
     }
 
@@ -100,7 +101,20 @@ export default class RichEditor extends React.Component<any,any> {
         //console.log(this)
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
-        this.props.onChange({target: {value: newHtml}})
+        this.props.onChange({target: {value: newHtml}});
+
+        //var txt = newHtml.replace(/({|})/g,'');   //过滤{}
+        //txt.replace(/</g,'&lt;');    //置换符号<
+        //txt.replace(/>/g,'&gt;');    //置换符号>
+        var txt= newHtml.replace(/<[^>]+>/g,"");//可以匹配<script></style></body>等，并置空。而不是替换<和>两个符号
+        //var txt=newHtml.replace(/<\/?[^>]*>/g,''); //*<\/?[^>]*>可以匹配<script></style></body>等，并置空。而不是替换<和>两个符号
+        txt = txt.replace(/&amp;/g,"&");//把 &amp; 替换成&;
+        txt = txt.replace(/&lt;/g,"<");//把 &lt; 替换成<
+        txt = txt.replace(/&gt;/g,">");//把 &gt; 替换成>
+        txt = txt.replace(/&nbsp;/g," ");//把 &nbsp; 替换成空格
+
+        this.props.onPureText({target: {value: txt}});
+        this.getButtonTypes();
     }
 
     private range:any;
@@ -110,6 +124,7 @@ export default class RichEditor extends React.Component<any,any> {
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+        this.getButtonTypes();
         //console.log('range',this.range.startOffset,this.range.endOffset);
     }
     /**设置字号大小*/
@@ -227,6 +242,19 @@ export default class RichEditor extends React.Component<any,any> {
         //console.log('testPosition')
     }
 
+    private getButtonTypes():void{
+        //console.log('testPick');
+        //var colour = document.queryCommandValue("ForeColor");
+        var bold = document.queryCommandValue("bold");
+        var italic = document.queryCommandValue("italic");
+        var underline = document.queryCommandValue('underline');
+        var justifyLeft = document.queryCommandValue('justifyLeft');
+        var justifyCenter = document.queryCommandValue('justifyCenter');
+        var justifyRight = document.queryCommandValue('justifyRight');
+
+        //console.log("colour:",colour,';bold:',bold,";italic:",italic,';underline:',underline);
+        //console.log('justifyLeft:',justifyLeft,"justifyCenter:",justifyCenter,';justifyRight:',justifyRight)
+    }
     render() {
         //console.log('render')
         //560  496 顶部栏默认高 66

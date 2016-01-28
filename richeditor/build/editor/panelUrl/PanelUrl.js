@@ -35,7 +35,6 @@ var PanelUrl = (function (_super) {
         if (url == this.defaultUrl)
             url = "";
         this.props.onSubmitUrl(result);
-        console.log(result);
     };
     PanelUrl.prototype.getUrl = function (value) {
         document.getElementById('urlArea')['value'] = value;

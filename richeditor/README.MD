@@ -1,5 +1,6 @@
 document.execCommand的方法
 http://blog.csdn.net/lhrhi/article/details/8469797
+http://ueditor.baidu.com/doc/
 
 光标控制
 !!good! http://bbs.csdn.net/topics/390680532
@@ -39,3 +40,22 @@ http://www.xue163.com/588880/39068/390680532.html
 http://zhidao.baidu.com/link?url=wCZPYnptiaAQZpqNxWlBBnRCpwSQO1YcSb2RFRLc0ZdlLLPEPcKxJjS97rFbuu_DeF7yP0rvFFfxCu5xD7y_qgbhdoP0V6WdofYpqw73RVe
 字号大小
 http://bbs.blueidea.com/forum.php?mod=viewthread&tid=1644377
+
+
+
+~~~
+<input type="text" id="theOne" value="">
+<input type="button" onclick="NoHtml()" value="过滤html标签">
+<script>
+    function NoHtml(){
+        var t=document.getElementById("theOne").value;
+        t=t.replace(/({|})/g,'');   //过滤{}
+        t=t.replace(/</g,'&lt;');    //置换符号<
+        t=t.replace(/>/g,'&gt;');    //置换符号>
+    //  t=t.replace(/<\/?[^>]*>/g,''); //*<\/?[^>]*>可以匹配<script></style></body>等，并置空。而不是替换<和>两个符号
+        document.getElementById("theOne").value=t;
+    }
+</script>
+~~~
+
+版本说明 v101 增加纯文字输出，横向不出现滚动条

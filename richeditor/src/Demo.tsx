@@ -35,6 +35,12 @@ export default class Demo extends React.Component<any,any> {
     private changeTest():void{
         this.setState({'test':!this.state.test})
     }
+    private outPut(e):void{
+        console.log('html:',e.target.value)
+    }
+    private pureText(e):void{
+        console.log('pure:',e.target.value)
+    }
     render(){
         var self = this;
         //if(this.state.test){
@@ -46,7 +52,12 @@ export default class Demo extends React.Component<any,any> {
         //}
         return(
             <div id='rd'>
-                <RichEditor content="测试文字测试文字" height={560} width={350} border={false} getImages={this.getImages.bind(this)} getUrl={this.getUrl.bind(this)} onChange={(e)=>{console.log(e.target.value)}}/>
+                <RichEditor content="测试文字测试文字" height={560} width={350} border={false}
+                            getImages={this.getImages.bind(this)}
+                            getUrl={this.getUrl.bind(this)}
+                            onChange={this.outPut.bind(this)}
+                            onPureText={this.pureText.bind(this)}
+                />
             </div>
         )
     }

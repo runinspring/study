@@ -80,11 +80,19 @@ var RichEditor = (function (_super) {
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         this.props.onChange({ target: { value: newHtml } });
+        var txt = newHtml.replace(/<[^>]+>/g, "");
+        txt = txt.replace(/&amp;/g, "&");
+        txt = txt.replace(/&lt;/g, "<");
+        txt = txt.replace(/&gt;/g, ">");
+        txt = txt.replace(/&nbsp;/g, " ");
+        this.props.onPureText({ target: { value: txt } });
+        this.testPick();
     };
     RichEditor.prototype.saveRange = function () {
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+        this.testPick();
     };
     RichEditor.prototype.setFontsize = function (size, change) {
         document.execCommand('fontSize', false, size);
@@ -161,6 +169,14 @@ var RichEditor = (function (_super) {
     };
     RichEditor.prototype.testPosition = function () {
     };
+    RichEditor.prototype.testPick = function () {
+        var colour = document.queryCommandValue("ForeColor");
+        var bold = document.queryCommandValue("bold");
+        var italic = document.queryCommandValue("italic");
+        var justifyLeft = document.queryCommandValue('justifyLeft');
+        var justifyCenter = document.queryCommandValue('justifyCenter');
+        var justifyRight = document.queryCommandValue('justifyRight');
+    };
     RichEditor.prototype.render = function () {
         var self = this;
         var styleAll = {
@@ -187,6 +203,7 @@ var RichEditor = (function (_super) {
     RichEditor.propTypes = {
         onChange: react_1.PropTypes.func.isRequired,
         getImages: react_1.PropTypes.func.isRequired,
+        onPureText: react_1.PropTypes.func.isRequired,
         getUrl: react_1.PropTypes.func.isRequired
     };
     return RichEditor;
