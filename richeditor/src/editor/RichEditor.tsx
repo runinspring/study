@@ -192,7 +192,7 @@ export default class RichEditor extends React.Component<any,any> {
         //console.log(data);
         var str = '';
         for (var i = 0, len = data.length; i < len; i++) {
-            str += ('<br><img width="98%" src="' + data[i] + '"><br clear=left>');
+            str += ('<br><img width="100%" src="' + data[i] + '"><br clear=left>');
             //str+=('<img width="100%" src="'+data[i]+'">');
         }
         this.insert(str);
