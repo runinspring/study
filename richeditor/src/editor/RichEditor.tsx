@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {PropTypes} from 'react';
 import PanelColor from './panelcolor/PanelColor';
-import TypeButton from './buttons/TypeButton';
-import {ToBoolean} from './lib/Lib';
+import PanelButton from './buttons/PanelButton';
 import SingleButton from './buttons/SingleButton';
 import PanelUrl from './panelUrl/PanelUrl';
 import './css/editor.css'
@@ -12,17 +11,10 @@ export default class RichEditor extends React.Component<any,any> {
         //offset 是lark平台会有拖拽功能，需要一个偏移量,设置为true
         this.state = {
             html: this.props.content,
-            typeFontColor: false,
-            typeUrl: false,
-            typeBold:false,
-            typeItalic:false,
-            typeUnderline:false,
-            typeJustifyLeft:false,
-            typeJustifyCenter:false,
-            typeJustifyRight:false,
+            offset: true,
+            panelColor: false,
+            panelUrl: false
         }
-
-
         if (this.props.height) {
             this.state.height = +this.props.height
         } else {
@@ -34,16 +26,12 @@ export default class RichEditor extends React.Component<any,any> {
             this.state.width = 350;
         }
         //console.log(112,this.props.border)
-        if (this.props.border) {//是否有边框
+        if (this.props.border) {
             this.state.border = 1;
         } else {
             this.state.border = 0;
         }
-        if(this.props.offset!=false){//是否有偏移量
-            this.state.offset = true;
-        }else{
-            this.state.offset = false;
-        }
+
     }
 
     /**
@@ -56,7 +44,6 @@ export default class RichEditor extends React.Component<any,any> {
                 //console.log('init3')
                 //document.getElementById('textbox')['flur']();
                 document.getElementById('textbox').focus();
-                this.saveRange();
                 //this.insert("")
             }
         },500)
@@ -106,7 +93,7 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     /**改变样式*/
-    private execCommand(command, arg?:any):void {
+    private execCommand(command, arg):void {
         document.execCommand(command, false, arg);
     }
 
@@ -120,10 +107,12 @@ export default class RichEditor extends React.Component<any,any> {
         //txt.replace(/</g,'&lt;');    //置换符号<
         //txt.replace(/>/g,'&gt;');    //置换符号>
         var txt= newHtml.replace(/<[^>]+>/g,"");//可以匹配<script></style></body>等，并置空。而不是替换<和>两个符号
+        //var txt=newHtml.replace(/<\/?[^>]*>/g,''); //*<\/?[^>]*>可以匹配<script></style></body>等，并置空。而不是替换<和>两个符号
+        txt = txt.replace(/&amp;/g,"&");//把 &amp; 替换成&;
         txt = txt.replace(/&lt;/g,"<");//把 &lt; 替换成<
         txt = txt.replace(/&gt;/g,">");//把 &gt; 替换成>
         txt = txt.replace(/&nbsp;/g," ");//把 &nbsp; 替换成空格
-        txt = txt.replace(/&amp;/g,"&");//把 &amp; 替换成&
+
         this.props.onPureText({target: {value: txt}});
         this.getButtonTypes();
     }
@@ -132,7 +121,6 @@ export default class RichEditor extends React.Component<any,any> {
 
     /**保存选择区域*/
     private saveRange():void {
-        //console.log('saveRange')
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
@@ -197,6 +185,11 @@ export default class RichEditor extends React.Component<any,any> {
         }
         this.insert(str);
     }
+    /**插入url*/
+    private insertUrl(value:string){
+        //this.setState({panelUrl:false});
+        this.insert(value);
+    }
 
     private idxInterval:any;
 
@@ -209,9 +202,9 @@ export default class RichEditor extends React.Component<any,any> {
         var lf = ed.getBoundingClientRect().left;
         var tp = ed.getBoundingClientRect().top;
         if(!this.state.offset){//不需要偏移量
-            lf=0; tp=25;
+            lf=0; tp=0;
         }
-        //console.log(333,lf,tp,this.state.offset)
+        //console.log(333,lf,tp)
 
         var tip = document.getElementById('tip');
         tip.className = 'ed-info-show';
@@ -240,12 +233,12 @@ export default class RichEditor extends React.Component<any,any> {
         commonFuns: {showInfo: this.showInfo.bind(this), hideInfo: this.hideInfo.bind(this)},
         color: {upClass: 'ed-icon ed-color', downClass: 'ed-icon ed-color-hover', info: '文字颜色'},
         fontSize: {upClass: 'ed-icon ed-list-border', downClass: 'ed-icon ed-list-border', info: '文字大小'},
-        bold: {upClass: 'ed-icon ed-bold', downClass: 'ed-icon ed-bold-hover', info: '粗体'},
-        italic: {upClass: 'ed-icon ed-italic', downClass: 'ed-icon ed-italic-hover', info: '斜体'},
-        underline: {upClass: 'ed-icon ed-underline', downClass: 'ed-icon ed-underline-hover', info: '下划线'},
-        justifyLeft: {upClass: 'ed-icon ed-left', downClass: 'ed-icon ed-left-hover', info: '左对齐'},
-        justifyCenter: {upClass: 'ed-icon ed-center', downClass: 'ed-icon ed-center-hover', info: '居中对齐'},
-        justifyRight: {upClass: 'ed-icon ed-right', downClass: 'ed-icon ed-right-hover', info: '右对齐'},
+        bold: {upClass: 'ed-icon ed-bold', downClass: 'ed-icon ed-bold', info: '粗体'},
+        italic: {upClass: 'ed-icon ed-italic', downClass: 'ed-icon ed-italic', info: '斜体'},
+        underline: {upClass: 'ed-icon ed-underline', downClass: 'ed-icon ed-underline', info: '下划线'},
+        justifyLeft: {upClass: 'ed-icon ed-left', downClass: 'ed-icon ed-left', info: '左对齐'},
+        justifyCenter: {upClass: 'ed-icon ed-center', downClass: 'ed-icon ed-center', info: '居中对齐'},
+        justifyRight: {upClass: 'ed-icon ed-right', downClass: 'ed-icon ed-right', info: '右对齐'},
         hr: {upClass: 'ed-icon ed-hr', downClass: 'ed-icon ed-hr', info: '分隔线'},
         link: {upClass: 'ed-icon ed-link', downClass: 'ed-icon ed-link-hover', info: '创建链接'},
         image: {upClass: 'ed-icon ed-image', downClass: 'ed-icon ed-image', info: '插入图片'}
@@ -253,40 +246,17 @@ export default class RichEditor extends React.Component<any,any> {
     private testPosition():void{
         //console.log('testPosition')
     }
-    private onMouseUp():void{
-        this.saveRange();
-        setTimeout(this.saveRange.bind(this),50)
-    }
 
     private getButtonTypes():void{
         //console.log('testPick');
         //var colour = document.queryCommandValue("ForeColor");
-        var changeObject = {};
-        if(ToBoolean(document.queryCommandValue("bold")) != this.state.typeBold){
-            changeObject['typeBold'] = !this.state.typeBold;
-        }
-        if(ToBoolean(document.queryCommandValue("italic")) != this.state.typeItalic){
-            changeObject['typeItalic'] = !this.state.typeItalic;
-        }
-        if(ToBoolean(document.queryCommandValue("underline")) != this.state.typeUnderline){
-            changeObject['typeUnderline'] = !this.state.typeUnderline;
-        }
-        if(ToBoolean(document.queryCommandValue("justifyLeft")) != this.state.typeJustifyLeft){
-            changeObject['typeJustifyLeft'] = !this.state.typeJustifyLeft;
-        }
-        if(ToBoolean(document.queryCommandValue("justifyCenter")) != this.state.typeJustifyCenter){
-            changeObject['typeJustifyCenter'] = !this.state.typeJustifyCenter;
-        }
-        if(ToBoolean(document.queryCommandValue("justifyRight")) != this.state.typeJustifyRight){
-            changeObject['typeJustifyRight'] = !this.state.typeJustifyRight;
-        }
-        //var justifyLeft = document.queryCommandValue('justifyLeft');
-        //var justifyCenter = document.queryCommandValue('justifyCenter');
-        //var justifyRight = document.queryCommandValue('justifyRight');
-        //console.log('changeObject:',changeObject)
-        if(Object.getOwnPropertyNames(changeObject).length>0){
-            this.setState(changeObject)
-        }
+        var bold = document.queryCommandValue("bold");
+        var italic = document.queryCommandValue("italic");
+        var underline = document.queryCommandValue('underline');
+        var justifyLeft = document.queryCommandValue('justifyLeft');
+        var justifyCenter = document.queryCommandValue('justifyCenter');
+        var justifyRight = document.queryCommandValue('justifyRight');
+
         //console.log("colour:",colour,';bold:',bold,";italic:",italic,';underline:',underline);
         //console.log('justifyLeft:',justifyLeft,"justifyCenter:",justifyCenter,';justifyRight:',justifyRight)
     }
@@ -303,11 +273,12 @@ export default class RichEditor extends React.Component<any,any> {
         //console.log(styleAll)
         //设置底部可编辑区域的高度
         var maxHeight = this.state.height - 66;
-        if (this.state.typeFontColor) maxHeight -= 31;
-        if (this.state.typeUrl) maxHeight -= 61;
+        if (this.state.panelColor) maxHeight -= 31;
+        if (this.state.panelUrl) maxHeight -= 61;
         var styleEditBody = {
             'height': maxHeight + 'px'
         }
+
 
         //console.log('render',this.state.panelColor)
         var getFontSizeList = this.arrFontSize.map((item, idx)=> {
@@ -327,8 +298,8 @@ export default class RichEditor extends React.Component<any,any> {
             <div id="richeditor" className="richeditor" style={styleAll}>
                 <div className="edit-bar">
                     <div className="ed-area">
-                        <TypeButton show={this.state.typeFontColor} datas={this.dataButtons.color}
-                                     clickTrigger={()=>{self.setState({typeFontColor:!self.state.typeFontColor})}}
+                        <PanelButton show={this.state.panelColor} datas={this.dataButtons.color}
+                                     clickTrigger={()=>{self.setState({panelColor:!self.state.panelColor})}}
                                      commonFuns={this.dataButtons.commonFuns}
                         />
                         <div className="drop-down">
@@ -336,52 +307,41 @@ export default class RichEditor extends React.Component<any,any> {
                                           commonFuns={this.dataButtons.commonFuns}/>
                             <ul> {getFontSizeList} </ul>
                         </div>
-                        <TypeButton show={this.state.typeBold} datas={this.dataButtons.bold}
-                                    clickTrigger={()=>{
-                                        self.setState({typeBold:!self.state.typeBold})
-                                        self.execCommand('bold');
-                                    }}
-                                    commonFuns={this.dataButtons.commonFuns}/>
-                        <TypeButton show={this.state.typeItalic} datas={this.dataButtons.italic}
-                                    clickTrigger={()=>{
-                                        self.setState({typeItalic:!self.state.typeItalic})
-                                        self.execCommand('italic');
-                                    }}
-                                    commonFuns={this.dataButtons.commonFuns}/>
-                        <TypeButton show={this.state.typeUnderline} datas={this.dataButtons.underline}
-                                    clickTrigger={()=>{
-                                        self.setState({typeUnderline:!self.state.typeUnderline})
-                                        self.execCommand('underline');
-                                    }}
-                                    commonFuns={this.dataButtons.commonFuns}/>
+                        <SingleButton datas={this.dataButtons.bold} clickTrigger={this.execCommand.bind(this,"bold")}
+                                      commonFuns={this.dataButtons.commonFuns}/>
+                        <SingleButton datas={this.dataButtons.italic}
+                                      clickTrigger={this.execCommand.bind(this,"italic")}
+                                      commonFuns={this.dataButtons.commonFuns}/>
+                        <SingleButton datas={this.dataButtons.underline}
+                                      clickTrigger={this.execCommand.bind(this,"underline")}
+                                      commonFuns={this.dataButtons.commonFuns}/>
                     </div>
                     <div className="area">
-                        <TypeButton show={this.state.typeJustifyLeft} datas={this.dataButtons.justifyLeft}
-                                    clickTrigger={this.execCommand.bind(this,"justifyLeft")}
-                                    commonFuns={this.dataButtons.commonFuns}/>
-                        <TypeButton show={this.state.typeJustifyCenter} datas={this.dataButtons.justifyCenter}
-                                    clickTrigger={this.execCommand.bind(this,"justifyCenter")}
-                                    commonFuns={this.dataButtons.commonFuns}/>
-                        <TypeButton show={this.state.typeJustifyRight} datas={this.dataButtons.justifyRight}
-                                    clickTrigger={this.execCommand.bind(this,"justifyRight")}
-                                    commonFuns={this.dataButtons.commonFuns}/>
-                        <SingleButton datas={this.dataButtons.hr}
-                                      clickTrigger={()=>{
-                                            self.insert("<hr color=#e9e9e9 size=1><br>")}}
+                        <SingleButton datas={this.dataButtons.justifyLeft}
+                                      clickTrigger={this.execCommand.bind(this,"justifyLeft")}
                                       commonFuns={this.dataButtons.commonFuns}/>
-                        <TypeButton show={this.state.typeUrl} datas={this.dataButtons.link}
-                                     clickTrigger={()=>{self.setState({typeUrl:!self.state.typeUrl})}}
+                        <SingleButton datas={this.dataButtons.justifyCenter}
+                                      clickTrigger={this.execCommand.bind(this,"justifyCenter")}
+                                      commonFuns={this.dataButtons.commonFuns}/>
+                        <SingleButton datas={this.dataButtons.justifyRight}
+                                      clickTrigger={this.execCommand.bind(this,"justifyRight")}
+                                      commonFuns={this.dataButtons.commonFuns}/>
+                        <SingleButton datas={this.dataButtons.hr} clickTrigger={()=>{
+                        self.insert("<br><hr style='height: 3px;background: #e9e9e9;border: none; '><br>")}}
+                                      commonFuns={this.dataButtons.commonFuns}/>
+                        <PanelButton show={this.state.panelUrl} datas={this.dataButtons.link}
+                                     clickTrigger={()=>{self.setState({panelUrl:!self.state.panelUrl})}}
                                      commonFuns={this.dataButtons.commonFuns}
                         />
                         <SingleButton datas={this.dataButtons.image}
                                       clickTrigger={this.props.getImages.bind(this,this.getImages.bind(this))}
                                       commonFuns={this.dataButtons.commonFuns}/>
                     </div>
-                    <PanelColor show={this.state.typeFontColor}
+                    <PanelColor show={this.state.panelColor}
                                 submitColor={(value)=>{self.execCommand("ForeColor",value)}}/>
-                    <PanelUrl show={this.state.typeUrl}
+                    <PanelUrl show={this.state.panelUrl}
                               getUrl={this.props.getUrl.bind(this)}
-                              onSubmitUrl={(value)=>{self.insert(value)}}
+                              onSubmitUrl={(value)=>{self.insertUrl(value)}}
                     />
                     <div id="tip" className="ed-info-hide"/>
                 </div>
@@ -389,7 +349,7 @@ export default class RichEditor extends React.Component<any,any> {
                      style={styleEditBody}
                      ref="editor"
                      spellCheck={false}
-                     onMouseUp={this.onMouseUp.bind(this)}
+                     onMouseUp={this.saveRange.bind(this)}
                      onKeyUp={this.saveRange.bind(this)}
                      contentEditable={true}
                      dangerouslySetInnerHTML={{__html: this.state.html}}
@@ -399,6 +359,9 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
 }
+//self.insert("<div style='height: 3px;width: 100%;background: #e9e9e9;margin: 10px 0 10px 0;display: block;'></div>")}}
+//self.insert("<hr color=#e9e9e9 size=4><br>")}}
+//self.insert("<hr style='height: 3px;background: #e9e9e9;border: none;margin:0;'><br>0")}}
 //<button className="ed-button" onClick={this.execCommand.bind(this,"insertOrderedList")}>
 //    <i className="ed-icon ed-list"></i>
 //</button>

@@ -27,7 +27,7 @@ export default class Demo extends React.Component<any,any> {
     //'http://img.popoho.com/UploadPic/2011-7/20117141153227.jpg'
     /**通过回调方法把图片url发给编辑器*/
     private getImages(callBack:Function):void{
-        callBack(['http://img.popoho.com/UploadPic/2011-11/20111123112429518.jpg']);
+        callBack(['http://www.xiaoxiongbizhi.com/wallpapers/__85/2/f/2fg40v2zs.jpg']);
     }
     private getUrl(callBack:Function):void{
         callBack('http://baidu.com');
@@ -53,7 +53,6 @@ export default class Demo extends React.Component<any,any> {
         return(
             <div id='rd'>
                 <RichEditor content="测试文字测试文字" height={560} width={350} border={false}
-                            offset={false}
                             getImages={this.getImages.bind(this)}
                             getUrl={this.getUrl.bind(this)}
                             onChange={this.outPut.bind(this)}

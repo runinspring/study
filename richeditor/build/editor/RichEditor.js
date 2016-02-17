@@ -86,13 +86,13 @@ var RichEditor = (function (_super) {
         txt = txt.replace(/&gt;/g, ">");
         txt = txt.replace(/&nbsp;/g, " ");
         this.props.onPureText({ target: { value: txt } });
-        this.testPick();
+        this.getButtonTypes();
     };
     RichEditor.prototype.saveRange = function () {
         document.getElementById('textbox').focus();
         var selection = window.getSelection ? window.getSelection() : document['selection'];
         this.range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-        this.testPick();
+        this.getButtonTypes();
     };
     RichEditor.prototype.setFontsize = function (size, change) {
         document.execCommand('fontSize', false, size);
@@ -140,9 +140,12 @@ var RichEditor = (function (_super) {
     RichEditor.prototype.getImages = function (data) {
         var str = '';
         for (var i = 0, len = data.length; i < len; i++) {
-            str += ('<br><img width="98%" src="' + data[i] + '"><br clear=left>');
+            str += ('<br><img width="100%" src="' + data[i] + '"><br clear=left>');
         }
         this.insert(str);
+    };
+    RichEditor.prototype.insertUrl = function (value) {
+        this.insert(value);
     };
     RichEditor.prototype.showInfo = function (e, value) {
         clearInterval(this.idxInterval);
@@ -169,10 +172,10 @@ var RichEditor = (function (_super) {
     };
     RichEditor.prototype.testPosition = function () {
     };
-    RichEditor.prototype.testPick = function () {
-        var colour = document.queryCommandValue("ForeColor");
+    RichEditor.prototype.getButtonTypes = function () {
         var bold = document.queryCommandValue("bold");
         var italic = document.queryCommandValue("italic");
+        var underline = document.queryCommandValue('underline');
         var justifyLeft = document.queryCommandValue('justifyLeft');
         var justifyCenter = document.queryCommandValue('justifyCenter');
         var justifyRight = document.queryCommandValue('justifyRight');
@@ -197,8 +200,8 @@ var RichEditor = (function (_super) {
             return React.createElement("li", {key: "fontsize" + idx, onClick: function () { self.setFontsize(item.parm, item.change); }}, React.createElement("a", {href: "javascript:;"}, item.value, "   "));
         });
         return (React.createElement("div", {id: "richeditor", className: "richeditor", style: styleAll}, React.createElement("div", {className: "edit-bar"}, React.createElement("div", {className: "ed-area"}, React.createElement(PanelButton_1["default"], {show: this.state.panelColor, datas: this.dataButtons.color, clickTrigger: function () { self.setState({ panelColor: !self.state.panelColor }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement("div", {className: "drop-down"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.fontSize, clickTrigger: function () { }, commonFuns: this.dataButtons.commonFuns}), React.createElement("ul", null, " ", getFontSizeList, " ")), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.bold, clickTrigger: this.execCommand.bind(this, "bold"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.italic, clickTrigger: this.execCommand.bind(this, "italic"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.underline, clickTrigger: this.execCommand.bind(this, "underline"), commonFuns: this.dataButtons.commonFuns})), React.createElement("div", {className: "area"}, React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyLeft, clickTrigger: this.execCommand.bind(this, "justifyLeft"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyCenter, clickTrigger: this.execCommand.bind(this, "justifyCenter"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.justifyRight, clickTrigger: this.execCommand.bind(this, "justifyRight"), commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.hr, clickTrigger: function () {
-            self.insert("<hr color=#e9e9e9 size=1><br>");
-        }, commonFuns: this.dataButtons.commonFuns}), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, datas: this.dataButtons.link, clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.image, clickTrigger: this.props.getImages.bind(this, this.getImages.bind(this)), commonFuns: this.dataButtons.commonFuns})), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insert(value); }}), React.createElement("div", {id: "tip", className: "ed-info-hide"})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), onKeyUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));
+            self.insert("<br><hr style='height: 3px;background: #e9e9e9;border: none; '><br>");
+        }, commonFuns: this.dataButtons.commonFuns}), React.createElement(PanelButton_1["default"], {show: this.state.panelUrl, datas: this.dataButtons.link, clickTrigger: function () { self.setState({ panelUrl: !self.state.panelUrl }); }, commonFuns: this.dataButtons.commonFuns}), React.createElement(SingleButton_1["default"], {datas: this.dataButtons.image, clickTrigger: this.props.getImages.bind(this, this.getImages.bind(this)), commonFuns: this.dataButtons.commonFuns})), React.createElement(PanelColor_1["default"], {show: this.state.panelColor, submitColor: function (value) { self.execCommand("ForeColor", value); }}), React.createElement(PanelUrl_1["default"], {show: this.state.panelUrl, getUrl: this.props.getUrl.bind(this), onSubmitUrl: function (value) { self.insertUrl(value); }}), React.createElement("div", {id: "tip", className: "ed-info-hide"})), React.createElement("div", {id: "textbox", className: "edit-body", style: styleEditBody, ref: "editor", spellCheck: false, onMouseUp: this.saveRange.bind(this), onKeyUp: this.saveRange.bind(this), contentEditable: true, dangerouslySetInnerHTML: { __html: this.state.html }, onInput: this.emitChange.bind(this)})));
     };
     RichEditor.propTypes = {
         onChange: react_1.PropTypes.func.isRequired,

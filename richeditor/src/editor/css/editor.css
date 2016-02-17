@@ -4,6 +4,17 @@
     border:1px solid #999999;
     font-size: 12px;
 }
+.richeditor .unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
 /*height: 560px;*/
 /**顶部条*/
 .richeditor .edit-bar{
@@ -20,6 +31,10 @@
     overflow:auto;
     overflow-x:hidden;
 }
+.richeditor .edit-body a{
+    text-decoration: underline!important;
+}
+
 .richeditor .edit-bar .ed-info-hide{
     width: 0px;
     height: 0px;
@@ -83,20 +98,6 @@
     height: 25px;
     line-height: 25px;
 }
-.richeditor .ed-subButton{
-    min-width: 40px;
-    cursor:pointer;
-    margin: 0 2px 0 2px;
-    outline: none;
-    border:none;
-
-    color: #FFFFFF;
-    background:#70c8f3;
-}
-/*background: -webkit-gradient(linear, left top, left bottom, from(#2d7bcb), color-stop(0.5, #296dbd), to(#255dad));*/
-.richeditor .ed-subButton:active{
-    background: #00b1ff;
-}
 .richeditor .ed-panel-color{
     height: 30px;
     margin: 0 4px 0 4px;
@@ -116,19 +117,45 @@
     height: 60px;
     margin: 0 4px 0 4px;
     padding: 0 6px 0 3px;
-    border-top: solid 1px #dddddd;;
+    border-top: solid 1px #dddddd;
+}
+.richeditor .panel-url .ed-alert{
+    color: red;
+    margin: 0 0 0 4px;
+    display: inline-flex;
+}
+.richeditor .panel-url .ed-subButton{
+    text-align: center;
+    width: 50px;
+    margin: 0 0 0 18px;
+    cursor:pointer;
+    outline: none;
+    border:none;
+    display: inline;
+    border-radius:3px;
+    color: #FFFFFF;
+    background:#70c8f3;
+}
+/*background: -webkit-gradient(linear, left top, left bottom, from(#2d7bcb), color-stop(0.5, #296dbd), to(#255dad));*/
+.richeditor .panel-url .ed-subButton:active{
+    background: #00b1ff;
 }
 .richeditor .panel-url .ed-input{
-    width: 280px;
+    width: 238px;
     font-size: 12px;
     border:1px solid #dddddd;
     height: 20px;
     line-height: 20px;
     margin: 5px 0px 0 0px;
     padding: 0 2px 0 2px;
-    padding-right: -200px;
     white-space:nowrap;
     display: inline-flex;
+}
+.richeditor .panel-url .ed-input-default{
+    color: #a9a9a9!important;
+}
+.richeditor .panel-url .ed-input-focus{
+    color: #000000!important;
 }
 .richeditor .ed-icon a{
     color: #515151;
@@ -152,9 +179,6 @@
 .richeditor .ed-italic{
     background-position: -75px 0px;
 }
-.richeditor .ed-italic-hover{
-    background-position: -100px 0px;
-}
 .richeditor .ed-italic:hover{
     background-position: -100px 0px;
 }
@@ -167,26 +191,17 @@
 .richeditor .ed-bold{
     background-position: -25px -25px;
 }
-.richeditor .ed-bold-hover{
-    background-position: 0px -25px;
-}
 .richeditor .ed-bold:hover{
     background-position: 0px -25px;
 }
 .richeditor .ed-underline{
     background-position: -50px -25px;
 }
-.richeditor .ed-underline-hover{
-    background-position: -75px -25px;
-}
 .richeditor .ed-underline:hover{
     background-position: -75px -25px;
 }
 .richeditor .ed-left{
     background-position: -100px -25px;
-}
-.richeditor .ed-left-hover{
-    background-position: -125px -25px;
 }
 .richeditor .ed-left:hover{
     background-position: -125px -25px;
@@ -203,17 +218,11 @@
 .richeditor .ed-center{
     background-position: 0px -50px;
 }
-.richeditor .ed-center-hover{
-    background-position: -25px -50px;
-}
 .richeditor .ed-center:hover{
     background-position: -25px -50px;
 }
 .richeditor .ed-right{
     background-position: -50px -50px;
-}
-.richeditor .ed-right-hover{
-    background-position: -75px -50px;
 }
 .richeditor .ed-right:hover{
     background-position: -75px -50px;

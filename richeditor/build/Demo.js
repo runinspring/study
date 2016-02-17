@@ -21,7 +21,7 @@ var Demo = (function (_super) {
         rd.style.top = 10 + 'px';
     };
     Demo.prototype.getImages = function (callBack) {
-        callBack(['http://img.popoho.com/UploadPic/2011-11/20111123112429518.jpg']);
+        callBack(['http://www.xiaoxiongbizhi.com/wallpapers/__85/2/f/2fg40v2zs.jpg']);
     };
     Demo.prototype.getUrl = function (callBack) {
         callBack('http://baidu.com');

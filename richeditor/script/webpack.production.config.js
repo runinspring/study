@@ -28,6 +28,10 @@ config = {
                 test: /\.css$/, // Only .css files
                 loader: 'style!css' // Run both loaders
             },
+            {
+                test: /css(\\|\/)[^\.]+\.(png|jpg)/,
+                loader: 'url-loader?limit=8192'
+            }
         ]
     },
     plugins: [
