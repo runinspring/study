@@ -23,4 +23,5 @@ http://www.checkme.tw/wordpress/react-webpack-generator/
 redux 文档
 https://github.com/camsong/redux-in-chinese
 http://camsong.github.io/redux-in-chinese/docs/introduction/Motivation.html
-http://segmentfault.com/a/1190000003482243
+http://segmentfault.com/a/1190000003482243.
+test
