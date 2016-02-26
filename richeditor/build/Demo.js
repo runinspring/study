@@ -21,7 +21,11 @@ var Demo = (function (_super) {
         rd.style.top = 10 + 'px';
     };
     Demo.prototype.getImages = function (callBack) {
-        callBack(['http://www.xiaoxiongbizhi.com/wallpapers/__85/2/f/2fg40v2zs.jpg']);
+        var obj = new Object();
+        obj['src'] = "http://larkweb.egret.com/assets/temp/6.png";
+        obj['relation'] = new Object();
+        obj['relation']['refInfo'] = '{"wx":{"media_id":"media_test1","url":"http://imgedu.gmw.cn/attachement/jpg/site2/20160226/d8cb8a4d09f7183a09482f.jpg"}}';
+        callBack(obj);
     };
     Demo.prototype.getUrl = function (callBack) {
         callBack('http://baidu.com');

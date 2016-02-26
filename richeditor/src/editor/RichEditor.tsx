@@ -41,32 +41,9 @@ export default class RichEditor extends React.Component<any,any> {
 
         setTimeout(()=>{
             if(document.getElementById('textbox')){
-                //console.log('init3')
-                //document.getElementById('textbox')['flur']();
                 document.getElementById('textbox').focus();
-                //this.insert("")
             }
-        },500)
-        //ed.focus();
-        //document.getElementById('textbox').focus();
-        //var selection = window.getSelection ? window.getSelection() : document['selection'];
-        //selection.collapseToEnd();
-        //this.insert(' ')
-        //设置焦点进入末尾
-        //var range,selection;
-        //if(document.createRange){
-        //    range = document.createRange();
-        //    range.selectNodeContents(ed);
-        //    range.collapse(false);
-        //    selection = window.getSelection();
-        //    selection.removeAllRanges();
-        //    selection.addRange(range);
-        //}else if(document['selection']){//IE 8 and lower
-        //    range = document.body['createTextRange']();
-        //    range.moveToElementText(ed);
-        //    range.collapse(false);
-        //    range.select();
-        //}
+        },500);
         document.onkeydown = function (e) {
             //console.log('onKeyDownHandler')
             if (e.ctrlKey && e.keyCode == 90) {
@@ -176,15 +153,70 @@ export default class RichEditor extends React.Component<any,any> {
     }
 
     /**从外层获取图片*/
-    private getImages(data) {
-        //console.log(data);
-        var str = '';
-        for (var i = 0, len = data.length; i < len; i++) {
-            str += ('<br><img width="100%" src="' + data[i] + '"><br clear=left>');
-            //str+=('<img width="100%" src="'+data[i]+'">');
+    private getImages(item) {
+        console.log('getImages:',item);
+        if(!item.src){
+            console.log('图片路径不存在：',item)
+            return;
         }
+        var src = item.src;
+        var wxsrc="";
+        if(item.relation && item.relation.refInfo){
+            var wx = item.relation.refInfo;
+            if(wx && wx.length>1){
+                try{
+                    var wxObj = JSON.parse(wx);
+                    if(wxObj.wx.url && wxObj.wx.url.length>1){
+                        wxsrc = wxObj.wx.url
+                    }
+                }catch(e) {
+                    console.log("图片插入时，微信json解析错误:",wx)
+                }
+            }
+        }
+        var str = '<br><p><img' +
+        ' src="' + wxsrc+ '"'+
+        ' _src="'+src +'"'+
+        ' wx_src="'+wxsrc +'"'+
+        'width="100%"' +
+        ' data-ratio="0.32663316582914576" data-w=""'+
+        '></p><br clear=left>';
+
+        //str = '<img src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0" wx_src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0" data-ratio="0.32663316582914576" data-w="" _src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0">'
         this.insert(str);
     }
+    /*private testing():void{
+        var editor = this.refs['editor'];
+        var newHtml = editor['innerHTML'];
+        var objE = document.createElement("div");
+        objE.innerHTML = newHtml;
+        var arr = objE.getElementsByTagName('img');
+        var wxsrc;
+        for(var i=0,len=arr.length;i<len;i++){
+            wxsrc = arr[i]['getAttribute']('wxsrc');
+            if(wxsrc && wxsrc.length>1){
+                arr[i]['src'] = wxsrc;
+            }
+        }
+        var result =  objE.innerHTML;
+        editor['innerHTML'] = result;
+    }
+    private testing2():void{
+        var editor = this.refs['editor'];
+        var newHtml = editor['innerHTML'];
+        var objE = document.createElement("div");
+        objE.innerHTML = newHtml;
+        var arr = objE.getElementsByTagName('img');
+        var wxsrc;
+        for(var i=0,len=arr.length;i<len;i++){
+            wxsrc = arr[i]['getAttribute']('larksrc');
+            if(wxsrc && wxsrc.length>1){
+                arr[i]['src'] = wxsrc;
+            }
+        }
+        var result =  objE.innerHTML;
+        editor['innerHTML'] = result;
+    }*/
     /**插入url*/
     private insertUrl(value:string){
         //this.setState({panelUrl:false});
@@ -242,9 +274,6 @@ export default class RichEditor extends React.Component<any,any> {
         hr: {upClass: 'ed-icon ed-hr', downClass: 'ed-icon ed-hr', info: '分隔线'},
         link: {upClass: 'ed-icon ed-link', downClass: 'ed-icon ed-link-hover', info: '创建链接'},
         image: {upClass: 'ed-icon ed-image', downClass: 'ed-icon ed-image', info: '插入图片'}
-    }
-    private testPosition():void{
-        //console.log('testPosition')
     }
 
     private getButtonTypes():void{
