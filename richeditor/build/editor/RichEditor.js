@@ -138,34 +138,17 @@ var RichEditor = (function (_super) {
         this.emitChange();
     };
     RichEditor.prototype.getImages = function (item) {
-        console.log('getImages:', item);
         if (!item.src) {
             console.log('图片路径不存在：', item);
             return;
         }
         var src = item.src;
-        var wxsrc = "";
-        if (item.relation && item.relation.refInfo) {
-            var wx = item.relation.refInfo;
-            if (wx && wx.length > 1) {
-                try {
-                    var wxObj = JSON.parse(wx);
-                    if (wxObj.wx.url && wxObj.wx.url.length > 1) {
-                        wxsrc = wxObj.wx.url;
-                    }
-                }
-                catch (e) {
-                    console.log("图片插入时，微信json解析错误:", wx);
-                }
-            }
-        }
-        var str = '<br><p><img' +
-            ' src="' + wxsrc + '"' +
-            ' _src="' + src + '"' +
-            ' wx_src="' + wxsrc + '"' +
+        var str = '<br><img' +
+            ' src="' + src + '"' +
+            ' wx_src=""' +
             'width="100%"' +
-            ' data-ratio="0.32663316582914576" data-w=""' +
-            '></p><br clear=left>';
+            ' data-ratio="0.6533333333333333" data-w=""' +
+            '><br clear=left>';
         this.insert(str);
     };
     RichEditor.prototype.insertUrl = function (value) {

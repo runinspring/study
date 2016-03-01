@@ -154,13 +154,20 @@ export default class RichEditor extends React.Component<any,any> {
 
     /**从外层获取图片*/
     private getImages(item) {
-        console.log('getImages:',item);
+        //console.log('getImages:',item);
         if(!item.src){
             console.log('图片路径不存在：',item)
             return;
         }
         var src = item.src;
-        var wxsrc="";
+        var str = '<br><img' +
+            ' src="' + src + '"'+
+            ' wx_src=""'+
+            'width="100%"' +
+            ' data-ratio="0.6533333333333333" data-w=""'+
+            '><br clear=left>';
+        this.insert(str);
+        /*var wxsrc="";
         if(item.relation && item.relation.refInfo){
             var wx = item.relation.refInfo;
             if(wx && wx.length>1){
@@ -175,15 +182,12 @@ export default class RichEditor extends React.Component<any,any> {
             }
         }
         var str = '<br><p><img' +
-        ' src="' + wxsrc+ '"'+
-        ' _src="'+src +'"'+
-        ' wx_src="'+wxsrc +'"'+
+        ' src="' + src + '"'+
+        ' wx_src="'+ wxsrc +'"'+
         'width="100%"' +
-        ' data-ratio="0.32663316582914576" data-w=""'+
+        ' data-ratio="0.6533333333333333" data-w=""'+
         '></p><br clear=left>';
-
-        //str = '<img src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0" wx_src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0" data-ratio="0.32663316582914576" data-w="" _src="https://mmbiz.qlogo.cn/mmbiz/ibbqM6TWS3Mel8btrHlsandWZgDViboDeHPeh7SN673QvI5eZl20F1mQbLKe8xTk7icl2AtLnSJbO9qqk7v2yMAlw/0">'
-        this.insert(str);
+        this.insert(str);*/
     }
     /*private testing():void{
         var editor = this.refs['editor'];
