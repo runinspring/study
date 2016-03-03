@@ -80,13 +80,15 @@ var RichEditor = (function (_super) {
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         this.props.onChange({ target: { value: newHtml } });
-        var fontElements = document.getElementsByTagName("font");
-        var size = this.lastFontStyle.size;
-        var changeSize = this.lastFontStyle.change;
-        for (var i = 0, len = fontElements.length; i < len; ++i) {
-            if (fontElements[i].size == size.toString()) {
-                fontElements[i].removeAttribute("size");
-                fontElements[i].style.fontSize = changeSize;
+        if (this.lastFontStyle) {
+            var fontElements = document.getElementsByTagName("font");
+            var size = this.lastFontStyle.size;
+            var changeSize = this.lastFontStyle.change;
+            for (var i = 0, len = fontElements.length; i < len; ++i) {
+                if (fontElements[i].size == size.toString()) {
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = changeSize;
+                }
             }
         }
         var txt = newHtml.replace(/<[^>]+>/g, "");

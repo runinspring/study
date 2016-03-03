@@ -81,16 +81,19 @@ export default class RichEditor extends React.Component<any,any> {
         this.props.onChange({target: {value: newHtml}});
 
         //替换字号样式
-        var fontElements = document.getElementsByTagName("font");
-        var size = this.lastFontStyle.size;
-        var changeSize = this.lastFontStyle.change;
-        for (var i = 0, len = fontElements.length; i < len; ++i){
-            if(fontElements[i].size == size.toString()){
-                //console.log('remove')
-                fontElements[i].removeAttribute("size");
-                fontElements[i].style.fontSize = changeSize;
+        if(this.lastFontStyle){
+            var fontElements = document.getElementsByTagName("font");
+            var size = this.lastFontStyle.size;
+            var changeSize = this.lastFontStyle.change;
+            for (var i = 0, len = fontElements.length; i < len; ++i){
+                if(fontElements[i].size == size.toString()){
+                    //console.log('remove')
+                    fontElements[i].removeAttribute("size");
+                    fontElements[i].style.fontSize = changeSize;
+                }
             }
         }
+
 
         //var txt = newHtml.replace(/({|})/g,'');   //过滤{}
         //txt.replace(/</g,'&lt;');    //置换符号<
