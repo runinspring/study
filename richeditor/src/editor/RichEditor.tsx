@@ -80,6 +80,18 @@ export default class RichEditor extends React.Component<any,any> {
         var newHtml = editor['innerHTML'];
         this.props.onChange({target: {value: newHtml}});
 
+        //替换字号样式
+        var fontElements = document.getElementsByTagName("font");
+        var size = this.lastFontStyle.size;
+        var changeSize = this.lastFontStyle.change;
+        for (var i = 0, len = fontElements.length; i < len; ++i){
+            if(fontElements[i].size == size.toString()){
+                //console.log('remove')
+                fontElements[i].removeAttribute("size");
+                fontElements[i].style.fontSize = changeSize;
+            }
+        }
+
         //var txt = newHtml.replace(/({|})/g,'');   //过滤{}
         //txt.replace(/</g,'&lt;');    //置换符号<
         //txt.replace(/>/g,'&gt;');    //置换符号>
@@ -104,16 +116,14 @@ export default class RichEditor extends React.Component<any,any> {
         this.getButtonTypes();
         //console.log('range',this.range.startOffset,this.range.endOffset);
     }
+    //最后一次的文本样式，防止切换样式替换错误
+    private lastFontStyle:any;
     /**设置字号大小*/
     private setFontsize(size,change):void{
         document.execCommand('fontSize', false, size);
-        var fontElements = document.getElementsByTagName("font");
-        for (var i = 0, len = fontElements.length; i < len; ++i){
-            if(fontElements[i].size == size.toString()){
-                //console.log('remove')
-                fontElements[i].removeAttribute("size");
-                fontElements[i].style.fontSize = change;
-            }
+        this.lastFontStyle = {
+            size:size,
+            change:change
         }
         this.emitChange();
     }

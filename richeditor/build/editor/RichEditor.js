@@ -80,6 +80,15 @@ var RichEditor = (function (_super) {
         var editor = this.refs['editor'];
         var newHtml = editor['innerHTML'];
         this.props.onChange({ target: { value: newHtml } });
+        var fontElements = document.getElementsByTagName("font");
+        var size = this.lastFontStyle.size;
+        var changeSize = this.lastFontStyle.change;
+        for (var i = 0, len = fontElements.length; i < len; ++i) {
+            if (fontElements[i].size == size.toString()) {
+                fontElements[i].removeAttribute("size");
+                fontElements[i].style.fontSize = changeSize;
+            }
+        }
         var txt = newHtml.replace(/<[^>]+>/g, "");
         txt = txt.replace(/&amp;/g, "&");
         txt = txt.replace(/&lt;/g, "<");
@@ -96,13 +105,10 @@ var RichEditor = (function (_super) {
     };
     RichEditor.prototype.setFontsize = function (size, change) {
         document.execCommand('fontSize', false, size);
-        var fontElements = document.getElementsByTagName("font");
-        for (var i = 0, len = fontElements.length; i < len; ++i) {
-            if (fontElements[i].size == size.toString()) {
-                fontElements[i].removeAttribute("size");
-                fontElements[i].style.fontSize = change;
-            }
-        }
+        this.lastFontStyle = {
+            size: size,
+            change: change
+        };
         this.emitChange();
     };
     RichEditor.prototype.insert = function (str) {
