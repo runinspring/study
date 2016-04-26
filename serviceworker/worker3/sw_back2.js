@@ -1,5 +1,5 @@
 importScripts('dist/serviceworker-cache-polyfill.js');
-const catchVersion = 'cahce-list-v28';
+const catchVersion = 'cahce-list-v21';
 console.log('catchVersion:',catchVersion)
 var cacheFiles1 = [
     '/worker3/id1.js'
@@ -14,33 +14,27 @@ this.addEventListener('install', function (evt) {
 });
 this.addEventListener('fetch', function (evt) {
     var reqUrl = evt.request.url;
-    //console.log('startFetch:',reqUrl)
-    if(reqUrl == 'https://egret.sinaapp.com/worker3/okok'){
-        console.log('create response:',reqUrl);
-        evt.respondWith(new Response(catchVersion,{headers:{ "Content-Type": "text/html"},"status":200 }))
-    }else{
-        evt.respondWith(
-            caches.match(evt.request).then(function(response) {
-                if (response) {
-                    console.log('fetch',reqUrl);
+    if(reqUrl == "https://egret.sinaapp.com/worker3/okok"){
+        
+    }
+    evt.respondWith(
+        caches.match(evt.request).then(function(response) {
+            if (response) {
+                console.log('fetch',reqUrl);
+                return response;
+            }
+            var request = evt.request.clone();
+            return fetch(request).then(function (response) {
+                if(reqUrl == "https://egret.sinaapp.com/worker3/okok"){
+                    console.log('create new response:',reqUrl);
+                    return new Response(catchVersion,{ "Content-Type": "text/html","status":200 });
+                }else{
+                    console.log('nofetch:',reqUrl)
                     return response;
                 }
-                console.log('not fetch',reqUrl);
-                return fetch(evt.request);
-                /*var request = evt.request.clone();
-                 return fetch(request).then(function (response) {
-                 if(reqUrl == "https://egret.sinaapp.com/worker3/okok"){
-                 console.log('create new response:',reqUrl);
-                 return new Response(catchVersion,{ "Content-Type": "text/html","status":200 });
-                 }else{
-                 console.log('nofetch:',reqUrl)
-                 return response;
-                 }
-                 });*/
-            })
-        )
-    }
-
+            });
+        })
+    )
 });
 this.addEventListener('activate', function(event) {
     //var cacheWhitelist = ['whiteList-v1'];
